@@ -1,3 +1,9 @@
 'use strict';
 const imported = require("./inventory.js");
-console.log(imported.inventory['Sallad']);
+let keys = Object.keys(imported.inventory).map(
+    function (key) {
+        return imported.inventory[key];
+
+    }
+);
+//console.log(keys);
