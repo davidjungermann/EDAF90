@@ -65,7 +65,7 @@ class Salad {
             console.warn("Provided ingredient type does not exist.")
         }
     }
-
+    // Task 7
     price() {
         // Summera alla värden i alla arrays för en sallad. 
         // För varje array-element, ta dess sträng-värde, använd som nyckel, 
@@ -89,3 +89,30 @@ myCaesarSalad.add('extras', 'Banan');
 myCaesarSalad.remove('extras', 'Banan');
 
 console.log(myCaesarSalad.price())
+
+// Task 8
+
+class ExtraGreenSalad extends Salad {
+
+    price() {
+        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        return salad.reduce((sum, ingredient) => {
+            if ("foundation" in ingredients[ingredient])
+                return sum += ingredients[ingredient].price * 1.3
+            return sum += ingredients[ingredient].price * 0.5
+        }, 0);
+    }
+}
+
+let myGreenSalad = new ExtraGreenSalad();
+myGreenSalad.add('foundation', 'Sallad + Pasta'); // 10
+myGreenSalad.add('protein', 'Kycklingfilé'); // 10
+myGreenSalad.add('extras', 'Bacon'); // 10
+myGreenSalad.add('extras', 'Krutonger'); // 5
+myGreenSalad.add('extras', 'Körsbärstomater'); // 5
+myGreenSalad.add('extras', 'Parmesan'); // 5
+myGreenSalad.add('dressing', 'Caesardressing'); // 5 
+myCaesarSalad.add('extras', 'Banan');
+myGreenSalad.remove('extras', 'Banan');
+
+console.log(myGreenSalad.price())
