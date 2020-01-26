@@ -24,7 +24,7 @@ Object.keys(ingredients).forEach(ingredient => {
     }
 });
 
-console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
+//console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
 
 
 // Task 5
@@ -36,7 +36,7 @@ class Salad {
         this.extras = [];
         this.dressing = [];
     }
-
+    // Koll för att ingredient finns i inventory? 
     add(ingrType, ingredient) {
 
         if (ingrType == 'foundation') {
@@ -65,18 +65,27 @@ class Salad {
             console.warn("Provided ingredient type does not exist.")
         }
     }
+
+    price() {
+        // Summera alla värden i alla arrays för en sallad. 
+        // För varje array-element, ta dess sträng-värde, använd som nyckel, 
+        // hitta motsvarande price i inventory. 
+        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
+    }
 }
 
 // Task 6
 
 let myCaesarSalad = new Salad();
-myCaesarSalad.add('foundation', 'Sallad');
-myCaesarSalad.add('protein', 'Kycklingfilé');
-myCaesarSalad.add('extras', 'Bacon');
-myCaesarSalad.add('extras', 'Krutonger');
-myCaesarSalad.add('extras', 'Körsbärstomater');
-myCaesarSalad.add('extras', 'Parmesan');
-myCaesarSalad.add('dressing', 'Caesardressing');
+myCaesarSalad.add('foundation', 'Sallad + Pasta'); // 10
+myCaesarSalad.add('protein', 'Kycklingfilé'); // 10
+myCaesarSalad.add('extras', 'Bacon'); // 10
+myCaesarSalad.add('extras', 'Krutonger'); // 5
+myCaesarSalad.add('extras', 'Körsbärstomater'); // 5
+myCaesarSalad.add('extras', 'Parmesan'); // 5
+myCaesarSalad.add('dressing', 'Caesardressing'); // 5 
 myCaesarSalad.add('extras', 'Banan');
 myCaesarSalad.remove('extras', 'Banan');
-console.log(myCaesarSalad)
+
+console.log(myCaesarSalad.price())
