@@ -67,14 +67,10 @@ class Salad {
     }
     // Task 7
     price() {
-        // Summera alla värden i alla arrays för en sallad. 
-        // För varje array-element, ta dess sträng-värde, använd som nyckel, 
-        // hitta motsvarande price i inventory. 
         var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
     }
 }
-
 // Task 6
 
 let myCaesarSalad = new Salad();
@@ -88,7 +84,7 @@ myCaesarSalad.add('dressing', 'Caesardressing'); // 5
 myCaesarSalad.add('extras', 'Banan');
 myCaesarSalad.remove('extras', 'Banan');
 
-console.log(myCaesarSalad.price())
+//console.log(myCaesarSalad.price())
 
 // Task 8
 
@@ -112,7 +108,60 @@ myGreenSalad.add('extras', 'Krutonger'); // 5
 myGreenSalad.add('extras', 'Körsbärstomater'); // 5
 myGreenSalad.add('extras', 'Parmesan'); // 5
 myGreenSalad.add('dressing', 'Caesardressing'); // 5 
-myCaesarSalad.add('extras', 'Banan');
+myGreenSalad.add('extras', 'Banan');
 myGreenSalad.remove('extras', 'Banan');
 
-console.log(myGreenSalad.price())
+//console.log(myGreenSalad.price())
+
+// Task 7 
+// RITA PROTOTYPDIAGRAM HÄR. 
+
+// Task 8 
+
+class GourmetSalad extends Salad {
+
+    // Scaling to 1 by default. 
+    add(ingrType, ingredient, scaling = 1) {
+
+        if (ingrType == 'foundation') {
+            this.foundation.push({
+                ingredient: ingredient,
+                scaling: scaling
+            });
+        } else if (ingrType == 'protein') {
+            this.protein.push({
+                ingredient: ingredient,
+                scaling: scaling
+            });
+        } else if (ingrType == 'extras') {
+            this.extras.push({
+                ingredient: ingredient,
+                scaling: scaling
+            });
+        } else if (ingrType == 'dressing') {
+            this.dressing.push({
+                ingredient: ingredient,
+                scaling: scaling
+            });
+        } else {
+            console.warn("Provided ingredient type does not exist.")
+        }
+    }
+    price() {
+        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient.ingredient].price * ingredient.scaling, 0);
+    }
+}
+
+let myGourmetSalad = new GourmetSalad();
+myGourmetSalad.add('foundation', 'Sallad + Pasta'); // 10
+myGourmetSalad.add('protein', 'Kycklingfilé', 2); // 10
+myGourmetSalad.add('extras', 'Bacon'); // 10
+myGourmetSalad.add('extras', 'Krutonger'); // 5
+myGourmetSalad.add('extras', 'Körsbärstomater'); // 5
+myGourmetSalad.add('extras', 'Parmesan'); // 5
+myGourmetSalad.add('dressing', 'Caesardressing'); // 5 
+myGourmetSalad.add('extras', 'Banan');
+myGourmetSalad.remove('extras', 'Banan');
+console.log(myGourmetSalad.price());
+console.log(myGourmetSalad)
