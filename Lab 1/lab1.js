@@ -84,7 +84,7 @@ myCaesarSalad.add('dressing', 'Caesardressing'); // 5
 myCaesarSalad.add('extras', 'Banan');
 myCaesarSalad.remove('extras', 'Banan');
 
-//console.log(myCaesarSalad.price())
+console.log(myCaesarSalad.price())
 
 // Task 8
 
@@ -111,7 +111,7 @@ myGreenSalad.add('dressing', 'Caesardressing'); // 5
 myGreenSalad.add('extras', 'Banan');
 myGreenSalad.remove('extras', 'Banan');
 
-//console.log(myGreenSalad.price())
+console.log(myGreenSalad.price())
 
 // Task 7 
 // RITA PROTOTYPDIAGRAM HÄR. 
@@ -155,7 +155,7 @@ class GourmetSalad extends Salad {
 
 let myGourmetSalad = new GourmetSalad();
 myGourmetSalad.add('foundation', 'Sallad + Pasta'); // 10
-myGourmetSalad.add('protein', 'Kycklingfilé', 2); // 10
+myGourmetSalad.add('protein', 'Kycklingfilé'); // 10
 myGourmetSalad.add('extras', 'Bacon'); // 10
 myGourmetSalad.add('extras', 'Krutonger'); // 5
 myGourmetSalad.add('extras', 'Körsbärstomater'); // 5
@@ -164,4 +164,32 @@ myGourmetSalad.add('dressing', 'Caesardressing'); // 5
 myGourmetSalad.add('extras', 'Banan');
 myGourmetSalad.remove('extras', 'Banan');
 console.log(myGourmetSalad.price());
-console.log(myGourmetSalad)
+
+
+
+// ----------------------------------------------------------------------------------- // 
+
+class ShoppingBasket {
+    constructor() {
+        this.salads = [];
+    }
+
+    add(salad) {
+        this.salads.push(salad);
+    }
+
+    remove(salad) {
+    }
+
+    price() {
+        let sum = 0;
+        this.salads.forEach(salad => sum += salad.price());
+        return sum;
+    }
+}
+
+let basket = new ShoppingBasket();
+basket.add(myCaesarSalad);
+basket.add(myGreenSalad);
+basket.add(myGourmetSalad);
+console.log(basket.price());
