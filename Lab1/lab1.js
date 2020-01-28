@@ -27,8 +27,7 @@ Object.keys(ingredients).forEach(ingredient => {
 
 
 // Task 5
-class Salad {
-    // Map?  
+class Salad { 
     constructor() {
         this.foundation = [];
         this.protein = [];
