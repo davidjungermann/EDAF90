@@ -1,5 +1,5 @@
 'use strict';
-const imported = require("./inventory.js.js");
+const imported = require("./inventory.js");
 
 // Task 4
 var ingrType = {
@@ -52,6 +52,7 @@ class Salad {
     }
 
     remove(ingrType, ingredient) {
+
         if (ingrType == 'foundation') {
             this.foundation.splice(this.foundation.indexOf(ingredient, 1));
         } else if (ingrType == 'protein') {
@@ -161,8 +162,8 @@ myGourmetSalad.add('extras', 'Krutonger'); // 5
 myGourmetSalad.add('extras', 'Körsbärstomater'); // 5
 myGourmetSalad.add('extras', 'Parmesan'); // 5
 myGourmetSalad.add('dressing', 'Caesardressing'); // 5 
-myGourmetSalad.add('extras', 'Banan');
-myGourmetSalad.remove('extras', 'Banan');
+myGourmetSalad.add('extras', 'Parmesan');
+myGourmetSalad.remove('extras', 'Parmesan');
 console.log(myGourmetSalad.price());
 
 // ----------------------------------------------------------------------------------- // 
@@ -176,7 +177,12 @@ class ShoppingBasket {
         this.salads.push(salad);
     }
 
-    remove(salad) {}
+    // Same one-liner as remove for Salad does not work here, why?
+    
+    remove(salad) {
+        let index = this.salads.indexOf(salad);
+        this.salads.splice(index, 1);
+    }
 
     price() {
         let sum = 0;
@@ -189,4 +195,5 @@ let basket = new ShoppingBasket();
 basket.add(myCaesarSalad);
 basket.add(myGreenSalad);
 basket.add(myGourmetSalad);
+basket.remove(myGourmetSalad);
 console.log(basket.price());
