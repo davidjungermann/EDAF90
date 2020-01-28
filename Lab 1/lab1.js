@@ -1,7 +1,6 @@
 'use strict';
 const imported = require("./inventory.js");
 
-
 // Task 4
 var ingrType = {
     foundation: 'Foundations: ',
@@ -36,7 +35,7 @@ class Salad {
         this.extras = [];
         this.dressing = [];
     }
-    // Koll för att ingredient finns i inventory? 
+
     add(ingrType, ingredient) {
 
         if (ingrType == 'foundation') {
@@ -113,10 +112,11 @@ myGreenSalad.remove('extras', 'Banan');
 
 console.log(myGreenSalad.price())
 
-// Task 7 
-// RITA PROTOTYPDIAGRAM HÄR. 
+// Task 9 
 
-// Task 8 
+// myCaesarSalad{} => Prototype{add: [Function], remove: [Function], price: [Function]} =>  myGreenSalad{} => Prototype{price: [Function]} => Object {} => null 
+
+// Task 10
 
 class GourmetSalad extends Salad {
 
@@ -165,8 +165,6 @@ myGourmetSalad.add('extras', 'Banan');
 myGourmetSalad.remove('extras', 'Banan');
 console.log(myGourmetSalad.price());
 
-
-
 // ----------------------------------------------------------------------------------- // 
 
 class ShoppingBasket {
@@ -178,8 +176,7 @@ class ShoppingBasket {
         this.salads.push(salad);
     }
 
-    remove(salad) {
-    }
+    remove(salad) {}
 
     price() {
         let sum = 0;
