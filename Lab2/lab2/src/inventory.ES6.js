@@ -1,10 +1,10 @@
-exports.inventory = {
-  Sallad: {price: 10, foundation: true, vegan: true},
+let inventory = {
+  Sallad: {price: 10, foundation: true, vegan: true}, 
   Pasta: {price: 10, foundation: true, gluten: true},
-  'Sallad + Pasta': {price: 10, foundation: true, gluten: true},
-  'Sallad + Matvete': {price: 10, foundation: true, vegan: true, gluten: true},
-  'Sallad + Glasnudlar': {price: 10, foundation: true, gluten: true},
-  'Sallad + Quinoa': {price: 10, foundation: true, vegan: true},
+  'Salad + Pasta': {price: 10, foundation: true, gluten: true},
+  'Salad + Matvete': {price: 10, foundation: true, vegan: true, gluten: true},
+  'Salad + Glasnudlar': {price: 10, foundation: true, gluten: true},
+  'Salad + Quinoa': {price: 10, foundation: true, vegan: true},
 
   'Kycklingfilé': {price: 10, protein: true},
   'Rökt kalkonfilé': {price: 10, protein: true},
@@ -14,7 +14,6 @@ exports.inventory = {
   'Marinerad bönmix': {price: 10, protein: true, vegan: true},
 
   Avocado: {price: 10, extra: true, vegan: true},
-  Bacon: {price: 10, extra: true},
   'Böngroddar': {price: 5, extra: true, vegan: true},
   'Cashewnötter': {price: 5, extra: true, vegan: true},
   'Chèvreost': {price: 15, extra: true, lactose: true},
@@ -25,7 +24,6 @@ exports.inventory = {
   Jalapeno: {price: 5, extra: true, vegan: true},
   'Krossade jordnötter': {price: 5, extra: true, vegan: true},
   Krutonger: {price: 5, extra: true, gluten: true},
-  'Körsbärstomater': {price: 5, extra: true, vegan: true},
   Lime: {price: 5, extra: true, vegan: true},
   Majs: {price: 5, extra: true, vegan: true},
   Oliver: {price: 5, extra: true, vegan: true},
@@ -41,7 +39,7 @@ exports.inventory = {
   'Valnötter': {price: 5, extra: true, vegan: true},
   'Ägg': {price: 5, extra: true},
 
-  Caesardressing: {price: 5, dressing: true, lactose: true},
+  Ceasardressing: {price: 5, dressing: true, lactose: true},
   Dillmayo: {price: 5, dressing: true},
   Honungsdijon: {price: 5, dressing: true, vegan: true},
   Kimchimayo: {price: 5, dressing: true},
@@ -52,11 +50,13 @@ exports.inventory = {
   'Örtvinägrett': {price: 5, dressing: true, vegan: true},
 };
 
-// recursively freeze the data structure.
-(function() {
-  deepFreeze(exports.inventory);
+// recursivly freeze the datastructure.
+(function () {
   function deepFreeze(obj) {
       Object.keys(obj).map(prop => deepFreeze(obj[prop]));
       Object.freeze(obj);
   }
+  deepFreeze(inventory);
 })();
+
+export default inventory;

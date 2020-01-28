@@ -177,8 +177,6 @@ class ShoppingBasket {
         this.salads.push(salad);
     }
 
-    // Same one-liner as remove for Salad does not work here, why?
-    
     remove(salad) {
         let index = this.salads.indexOf(salad);
         this.salads.splice(index, 1);
