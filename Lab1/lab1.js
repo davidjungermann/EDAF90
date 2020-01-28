@@ -119,7 +119,6 @@ console.log(myGreenSalad.price())
 // Task 10
 
 class GourmetSalad extends Salad {
-
     // Scaling to 1 by default. 
     add(ingrType, ingredient, scaling = 1) {
 
