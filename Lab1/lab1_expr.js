@@ -96,7 +96,7 @@ class ExtraGreenSalad extends Salad {
 // myCaesarSalad{}: Salad => Prototype{add: [Function], remove: [Function], price: [Function]} =>  myGreenSalad{}: ExtraGreenSalad => Prototype{price: [Function]} => Object {} => null 
 
 
-class GourmetSalad extends Salad {  
+class GourmetSalad extends Salad {
     add(name, ingredient, scaling = 1) {
 
         if (ingredient.hasOwnProperty('foundation')) {
