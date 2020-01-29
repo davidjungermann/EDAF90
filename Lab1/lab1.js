@@ -66,7 +66,7 @@ class Salad {
     }
     // Task 7
     price() {
-        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
     }
 }
@@ -147,7 +147,7 @@ class GourmetSalad extends Salad {
         }
     }
     price() {
-        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredients[ingredient.ingredient].price * ingredient.scaling, 0);
     }
 }

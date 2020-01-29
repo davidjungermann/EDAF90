@@ -33,27 +33,27 @@ class Salad {
         this.dressing = [];
     }
 
-    add(ingredient) {
+    add(name, ingredient) {
 
         if (ingredient.hasOwnProperty('foundation')) {
             this.foundation.push({
-                ingredient: ingredient,
-                ...ingredients[ingredient]
+                name: name,
+                ...ingredients[name]
             });
         } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.push({
-                ingredient: ingredient,
-                ...ingredients[ingredient]
+                name: name,
+                ...ingredients[name]
             });
-        } else if (ingredient.hasOwnProperty('extras')) {
+        } else if (ingredient.hasOwnProperty('extra')) {
             this.extras.push({
-                ingredient: ingredient,
-                ...ingredients[ingredient]
+                name: name,
+                ...ingredients[name]
             });
         } else if (ingredient.hasOwnProperty('dressing')) {
             this.dressing.push({
-                ingredient: ingredient,
-                ...ingredients[ingredient]
+                name: name,
+                ...ingredients[name]
             });
         } else {
             console.warn("Provided ingredient type does not exist.")
@@ -66,9 +66,9 @@ class Salad {
             this.foundation.splice(this.foundation.indexOf(ingredient, 1));
         } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.splice(this.protein.indexOf(ingredient, 1));
-        } else if (ingredient.hasOwnProperty('extras')) {
+        } else if (ingredient.hasOwnProperty('extra')) {
             this.extras.splice(this.extras.indexOf(ingredient, 1));
-        } else if (ingredient.hasOwnProperty('foundation')) {
+        } else if (ingredient.hasOwnProperty('dressing')) {
             this.dressing.splice(this.dressing.indexOf(ingredient, 1));
         } else {
             console.warn("Provided ingredient type does not exist.")
@@ -76,19 +76,19 @@ class Salad {
     }
     // Task 7
     price() {
-        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
-        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
+        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
     }
 }
 
 class ExtraGreenSalad extends Salad {
 
     price() {
-        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
         return salad.reduce((sum, ingredient) => {
-            if ("foundation" in ingredients[ingredient])
-                return sum += ingredients[ingredient].price * 1.3
-            return sum += ingredients[ingredient].price * 0.5
+            if (ingredient.hasOwnProperty('foundation'))
+                return sum += ingredient.price * 1.3
+            return sum += ingredient.price * 0.5
         }, 0);
     }
 }
@@ -97,45 +97,42 @@ class ExtraGreenSalad extends Salad {
 
 
 class GourmetSalad extends Salad {  
-    add(ingredient, scaling = 1) {
+    add(name, ingredient, scaling = 1) {
 
         if (ingredient.hasOwnProperty('foundation')) {
             this.foundation.push({
-                ingredient: ingredient,
+                name: name,
                 scaling: scaling,
-                ...ingredients[ingredient]
+                ...ingredients[name]
             });
         } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.push({
-                ingredient: ingredient,
+                name: name,
                 scaling: scaling,
-                ...ingredients[ingredient]
+                ...ingredients[name]
             });
-        } else if (ingredient.hasOwnProperty('extras')) {
+        } else if (ingredient.hasOwnProperty('extra')) {
             this.extras.push({
-                ingredient: ingredient,
+                name: name,
                 scaling: scaling,
-                ...ingredients[ingredient]
+                ...ingredients[name]
             });
         } else if (ingredient.hasOwnProperty('dressing')) {
             this.dressing.push({
-                ingredient: ingredient,
+                name: name,
                 scaling: scaling,
-                ...ingredients[ingredient]
+                ...ingredients[name]
             });
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
     }
     price() {
-        var salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
-        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient.ingredient].price * ingredient.scaling, 0);
+        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
+        return salad.reduce((sum, ingredient) => sum += ingredient.price * ingredient.scaling, 0);
     }
 }
 
-let mySalad = new Salad();
-mySalad.add(ingredients.Sallad)
-mySalad.add(ingredients.Bacon)
 // ----------------------------------------------------------------------------------- // 
 
 class ShoppingBasket {
@@ -158,3 +155,30 @@ class ShoppingBasket {
         return sum;
     }
 }
+
+
+// ------------------------------------------------ //
+
+let mySalad = new Salad();
+mySalad.add("Bacon", ingredients.Bacon)
+mySalad.add("Avocado", ingredients.Avocado)
+mySalad.add("Sallad", ingredients.Sallad)
+console.log(mySalad)
+
+let myGreenSalad = new ExtraGreenSalad();
+myGreenSalad.add("Bacon", ingredients.Bacon)
+myGreenSalad.add("Avocado", ingredients.Avocado)
+myGreenSalad.add("Sallad", ingredients.Sallad)
+console.log(myGreenSalad)
+
+let myLyxSalad = new GourmetSalad();
+myLyxSalad.add("Bacon", ingredients.Bacon, 10)
+myLyxSalad.add("Avocado", ingredients.Avocado)
+myLyxSalad.add("Sallad", ingredients.Sallad)
+console.log(myLyxSalad)
+
+let myBasket = new ShoppingBasket();
+myBasket.add(mySalad);
+myBasket.add(myGreenSalad);
+myBasket.add(myLyxSalad);
+console.log(myBasket.price());
