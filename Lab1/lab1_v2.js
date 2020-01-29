@@ -23,7 +23,7 @@ Object.keys(ingredients).forEach(ingredient => {
     }
 });
 
-console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
+//console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
 
 class Salad {
     constructor() {
@@ -35,26 +35,19 @@ class Salad {
 
     add(name, ingredient) {
 
+        let ingrObj = {
+            name: name,
+            ...ingredients[name]
+        }
+
         if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation.push({
-                name: name,
-                ...ingredients[name]
-            });
+            this.foundation.push(ingrObj);
         } else if (ingredient.hasOwnProperty('protein')) {
-            this.protein.push({
-                name: name,
-                ...ingredients[name]
-            });
+            this.protein.push(ingrObj);
         } else if (ingredient.hasOwnProperty('extra')) {
-            this.extras.push({
-                name: name,
-                ...ingredients[name]
-            });
+            this.extras.push(ingrObj);
         } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing.push({
-                name: name,
-                ...ingredients[name]
-            });
+            this.dressing.push(ingrObj);
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
@@ -99,30 +92,20 @@ class ExtraGreenSalad extends Salad {
 class GourmetSalad extends Salad {
     add(name, ingredient, scaling = 1) {
 
+        let ingrObj = {
+            name: name,
+            scaling: scaling,
+            ...ingredients[name]
+        }
+
         if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation.push({
-                name: name,
-                scaling: scaling,
-                ...ingredients[name]
-            });
+            this.foundation.push(ingrObj);
         } else if (ingredient.hasOwnProperty('protein')) {
-            this.protein.push({
-                name: name,
-                scaling: scaling,
-                ...ingredients[name]
-            });
+            this.protein.push(ingrObj);
         } else if (ingredient.hasOwnProperty('extra')) {
-            this.extras.push({
-                name: name,
-                scaling: scaling,
-                ...ingredients[name]
-            });
+            this.extras.push(ingrObj);
         } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing.push({
-                name: name,
-                scaling: scaling,
-                ...ingredients[name]
-            });
+            this.dressing.push(ingrObj);
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
@@ -161,19 +144,25 @@ class ShoppingBasket {
 let mySalad = new Salad();
 mySalad.add("Bacon", ingredients.Bacon)
 mySalad.add("Avocado", ingredients.Avocado)
+mySalad.add("Avocado", ingredients.Avocado)
 mySalad.add("Sallad", ingredients.Sallad)
+mySalad.remove(ingredients.Avocado);
 console.log(mySalad)
 
 let myGreenSalad = new ExtraGreenSalad();
 myGreenSalad.add("Bacon", ingredients.Bacon)
 myGreenSalad.add("Avocado", ingredients.Avocado)
+myGreenSalad.add("Avocado", ingredients.Avocado)
 myGreenSalad.add("Sallad", ingredients.Sallad)
+myGreenSalad.remove(ingredients.Avocado);
 console.log(myGreenSalad)
 
 let myLyxSalad = new GourmetSalad();
-myLyxSalad.add("Bacon", ingredients.Bacon, 10)
+myLyxSalad.add("Bacon", ingredients.Bacon, 100)
+myLyxSalad.add("Avocado", ingredients.Avocado)
 myLyxSalad.add("Avocado", ingredients.Avocado)
 myLyxSalad.add("Sallad", ingredients.Sallad)
+myLyxSalad.remove(ingredients.Avocado);
 console.log(myLyxSalad)
 
 let myBasket = new ShoppingBasket();
