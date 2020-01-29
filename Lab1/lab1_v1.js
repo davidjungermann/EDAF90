@@ -1,7 +1,6 @@
 'use strict';
 const imported = require("./inventory.js");
 
-// Task 4
 var ingrType = {
     foundation: 'Foundations: ',
     extra: 'Extras: ',
@@ -23,10 +22,6 @@ Object.keys(ingredients).forEach(ingredient => {
     }
 });
 
-//console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
-
-
-// Task 5
 class Salad { 
     constructor() {
         this.foundation = [];
@@ -64,13 +59,13 @@ class Salad {
             console.warn("Provided ingredient type does not exist.")
         }
     }
-    // Task 7
+
     price() {
         let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
     }
 }
-// Task 6
+
 
 let myCaesarSalad = new Salad();
 myCaesarSalad.add('foundation', 'Sallad + Pasta'); // 10
@@ -84,8 +79,6 @@ myCaesarSalad.add('extras', 'Banan');
 myCaesarSalad.remove('extras', 'Banan');
 
 console.log(myCaesarSalad.price())
-
-// Task 8
 
 class ExtraGreenSalad extends Salad {
 
@@ -109,14 +102,10 @@ myGreenSalad.add('extras', 'Parmesan'); // 5
 myGreenSalad.add('dressing', 'Caesardressing'); // 5 
 myGreenSalad.add('extras', 'Banan');
 myGreenSalad.remove('extras', 'Banan');
-
 console.log(myGreenSalad.price())
 
-// Task 9 
 
 // myCaesarSalad{}: Salad => Prototype{add: [Function], remove: [Function], price: [Function]} =>  myGreenSalad{}: ExtraGreenSalad => Prototype{price: [Function]} => Object {} => null 
-
-// Task 10
 
 class GourmetSalad extends Salad {
     // Scaling to 1 by default. 

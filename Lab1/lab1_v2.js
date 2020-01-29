@@ -2,7 +2,7 @@
 const imported = require("./inventory.js");
 
 // Task 4
-var ingrType = {
+let ingrType = {
     foundation: 'Foundations: ',
     extra: 'Extras: ',
     protein: 'Proteins: ',
@@ -23,7 +23,7 @@ Object.keys(ingredients).forEach(ingredient => {
     }
 });
 
-//console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
+console.log(ingrType.foundation + "\n" + ingrType.extra + "\n" + ingrType.protein + "\n" + ingrType.dressing);
 
 class Salad {
     constructor() {
@@ -155,7 +155,6 @@ class ShoppingBasket {
         return sum;
     }
 }
-
 
 // ------------------------------------------------ //
 
