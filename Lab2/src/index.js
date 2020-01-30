@@ -1,16 +1,31 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
-import 'bootstrap/dist/css/bootstrap.css';
+import React from "react";
+import ReactDOM from "react-dom";
+import "bootstrap/dist/css/bootstrap.css";
 import "bootstrap/dist/js/bootstrap.js";
-import $ from 'jquery';
-import Popper from 'popper.js';        
+import $ from "jquery"; // skip this if you do not use bootstrap modals
+import Popper from "popper.js"; // skip this if you do not use bootstrap modals
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import "./styles.css";
+import inventory from "./inventory.ES6";
+import ComposeSalad from "./ComposeSalad";
+import ComposeSaladModal from "./ComposeSaladModal";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+function App() {
+    return (
+        <div>
+            <div className="jumbotron text-center">
+                <h1 className="display-4">EDAF90 - Web Programming</h1>
+                <p className="lead">
+                    This is a template project for react + router + bootstrap.
+        </p>
+                <hr className="my-4" />
+                <p>This code is a good starting point for lab 2.</p>
+            </div>
+
+            <ComposeSaladModal inventory={inventory} />
+        </div>
+    );
+}
+
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
