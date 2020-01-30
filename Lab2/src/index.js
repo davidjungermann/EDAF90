@@ -14,14 +14,11 @@ function App() {
     return (
         <div>
             <div className="jumbotron text-center">
-                <h1 className="display-4">EDAF90 - Web Programming</h1>
-                <p className="lead">
-                    This is a template project for react + router + bootstrap.
-        </p>
+                <h1 className="display-4">Brunt & Bajs</h1>
+                <p className="lead">Lunds äckligaste sallad</p>
                 <hr className="my-4" />
-                <p>This code is a good starting point for lab 2.</p>
+                <p>Gör din rövsallad här!</p>
             </div>
-
             <ComposeSaladModal inventory={inventory} />
         </div>
     );
