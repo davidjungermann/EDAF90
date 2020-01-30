@@ -36,13 +36,41 @@ class ComposeSalad extends React.Component {
             <div className="container" onSubmit={this.handleSubmit}>
                 <form>
                     <label>
-                        Bas: &nbsp;
+                        Välj bas: &nbsp;
                         <select value={this.state.foundation} onChange={this.handleChange}>
                             <option value="" selected disabled hidden>Välj salladsbas</option>
                             {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
                                 {ingredient}</option>)}
                         </select>
                     </label>
+                    <br></br>
+                    <label>
+                        Välj protein: &nbsp;
+                            <input
+                            name="protein"
+                            type="checkbox"
+                            checked={this.state.isGoing}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br></br>
+                    <label>
+                        Välj extras: &nbsp;
+                            <input
+                            name="extras"
+                            type="checkbox"
+                            checked={this.state.isGoing}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br></br>
+                    <label>
+                        Välj dressing: &nbsp;
+                            <input
+                            name="dressing"
+                            type="checkbox"
+                            checked={this.state.isGoing}
+                            onChange={this.handleInputChange} />
+                    </label>
+                    <br></br>
                     <input type="submit" value="Submit" />
                 </form>
             </div>
