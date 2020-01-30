@@ -1,4 +1,5 @@
 import React from "react";
+import Salad from "./Salad";
 class ComposeSalad extends React.Component {
     constructor(props) {
         super(props);
@@ -9,11 +10,11 @@ class ComposeSalad extends React.Component {
             dressing: [],
             price: 0
         };
-        this.handleChange = this.handleChange.bind(this);
+        this.handleFoundationChange = this.handleFoundationChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleChange(event) {
+    handleFoundationChange(event) {
         this.setState({ foundation: event.target.value });
     }
 
@@ -32,12 +33,25 @@ class ComposeSalad extends React.Component {
         let foundations = Object.keys(inventory).filter(
             name => inventory[name].foundation
         );
+
+        let proteins = Object.keys(inventory).filter(
+            name => inventory[name].protein
+        );
+
+        let extras = Object.keys(inventory).filter(
+            name => inventory[name].extra
+        );
+
+        let dressings = Object.keys(inventory).filter(
+            name => inventory[name].dressing
+        );
+
         return (
             <div className="container" onSubmit={this.handleSubmit}>
                 <form>
                     <label>
                         Välj bas: &nbsp;
-                        <select value={this.state.foundation} onChange={this.handleChange}>
+                        <select value={this.state.foundation} onChange={this.handleFoundationChange}>
                             <option value="" selected disabled hidden>Välj salladsbas</option>
                             {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
                                 {ingredient}</option>)}
