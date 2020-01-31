@@ -63,43 +63,39 @@ class ComposeSalad extends React.Component {
         return (
             <div className="container" onSubmit={this.handleSubmit}>
                 <form>
-                    <label>
-                        Välj bas: &nbsp;
-                        <select value={this.state.foundation} onChange={this.handleFoundationChange}>
-                            <option value="" selected disabled hidden>Välj salladsbas</option>
-                            {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
-                                {ingredient}</option>)}
-                        </select>
-                    </label>
-                    <br></br>
-                    <label>
-                        Välj protein: &nbsp;
-                            <input
-                            name="protein"
-                            type="checkbox"
-                            checked={this.state.isGoing}
-                            onChange={this.handleProteinChange} />
-                    </label>
-                    <br></br>
-                    <label>
-                        Välj extras: &nbsp;
-                            <input
-                            name="extras"
-                            type="checkbox"
-                            checked={this.state.isGoing}
-                            onChange={this.handleExtraChange} />
-                    </label>
-                    <br></br>
-                    <label>
-                        Välj dressing: &nbsp;
-                        <select value={this.state.dressings} onChange={this.handleDressingChange}>
-                            <option value="" selected disabled hidden>Välj salladsdressing</option>
-                            {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
-                                {ingredient}</option>)}
-                        </select>
-                    </label>
-                    <br></br>
-                    <input type="submit" value="Submit" />
+                    <h4>Bas:</h4>
+                    <select value={this.state.foundation} onChange={this.handleFoundationChange}>
+                        <option value="" selected disabled hidden>Välj salladsbas</option>
+                        {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
+                            {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
+                    </select>
+                    <p></p>
+
+                    <h4>Protein:</h4>
+                    <input
+                        name="extras"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleExtraChange} />
+                    <p></p>
+
+                    <h4>Extraingredienser:</h4>
+                    <input
+                        name="extras"
+                        type="checkbox"
+                        checked={this.state.isGoing}
+                        onChange={this.handleExtraChange} />
+                    <p></p>
+
+                    <h4>Dressing:</h4>
+                    <select value={this.state.dressings} onChange={this.handleDressingChange}>
+                        <option value="" selected disabled hidden>Välj salladsdressing</option>
+                        {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
+                            {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
+                    </select>
+                    <p></p>
+
+                    <input type="submit" value="Lägg till sallad" />
                 </form>
             </div>
         );
