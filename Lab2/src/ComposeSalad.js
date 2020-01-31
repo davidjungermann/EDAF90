@@ -72,19 +72,32 @@ class ComposeSalad extends React.Component {
                     <p></p>
 
                     <h4>Protein:</h4>
-                    <input
-                        name="extras"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleExtraChange} />
+
+                    {proteins.map(name => (
+                        <div key={name}>
+                            <input
+                                type="Checkbox"
+                                name="protein"
+                                value={name}
+                                checked={this.state.protein.includes(name)}
+                                onChange={this.handleProteinChange}
+                            />
+                            {" " + name + " +" + inventory[name].price + " kr"}</div>
+                    ))}
                     <p></p>
 
                     <h4>Extraingredienser:</h4>
-                    <input
-                        name="extras"
-                        type="checkbox"
-                        checked={this.state.isGoing}
-                        onChange={this.handleExtraChange} />
+                    {extras.map(name => (
+                        <div key={name}>
+                            <input
+                                type="Checkbox"
+                                name="extras"
+                                value={name}
+                                checked={this.state.extras.includes(name)}
+                                onChange={this.handleProteinChange}
+                            />
+                            {" " + name + " +" + inventory[name].price + " kr"}</div>
+                    ))}
                     <p></p>
 
                     <h4>Dressing:</h4>
