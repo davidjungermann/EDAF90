@@ -11,6 +11,7 @@ class ComposeSalad extends React.Component {
             price: 0
         };
         this.handleFoundationChange = this.handleFoundationChange.bind(this);
+        this.handleDressingChange = this.handleDressingChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
@@ -18,8 +19,21 @@ class ComposeSalad extends React.Component {
         this.setState({ foundation: event.target.value });
     }
 
+    handleProteinChange(event) {
+
+    }
+
+    handleExtraChange(event) {
+
+    }
+
+
+    handleDressingChange(event) {
+        this.setState({ dressing: event.target.value });
+    }
+
     handleSubmit(event) {
-        alert('Basen är: ' + this.state.foundation);
+        alert('Basen är: ' + this.state.foundation + 'Dressingen är: ' + this.state.dressing);
         event.preventDefault();
     }
 
@@ -64,7 +78,7 @@ class ComposeSalad extends React.Component {
                             name="protein"
                             type="checkbox"
                             checked={this.state.isGoing}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleProteinChange} />
                     </label>
                     <br></br>
                     <label>
@@ -73,16 +87,16 @@ class ComposeSalad extends React.Component {
                             name="extras"
                             type="checkbox"
                             checked={this.state.isGoing}
-                            onChange={this.handleInputChange} />
+                            onChange={this.handleExtraChange} />
                     </label>
                     <br></br>
                     <label>
                         Välj dressing: &nbsp;
-                            <input
-                            name="dressing"
-                            type="checkbox"
-                            checked={this.state.isGoing}
-                            onChange={this.handleInputChange} />
+                        <select value={this.state.dressings} onChange={this.handleDressingChange}>
+                            <option value="" selected disabled hidden>Välj salladsdressing</option>
+                            {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
+                                {ingredient}</option>)}
+                        </select>
                     </label>
                     <br></br>
                     <input type="submit" value="Submit" />
