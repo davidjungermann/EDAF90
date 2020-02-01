@@ -1,4 +1,4 @@
-class Salad {
+export default class Salad {
     constructor() {
         this.foundation = [];
         this.protein = [];
@@ -6,7 +6,7 @@ class Salad {
         this.dressing = [];
     }
 
-    add(name, ingredient) {
+    add(ingredient) {
 
         if (ingredient.hasOwnProperty('foundation')) {
             this.foundation.push(ingredient);

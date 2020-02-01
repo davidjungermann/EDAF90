@@ -1,39 +1,76 @@
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'mdbreact/dist/css/mdb.css'
 import React from "react";
 import Salad from "./Salad";
+
 class ComposeSalad extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
             foundation: [],
             protein: [],
-            extras: [],
+            extra: [],
             dressing: [],
-            price: 0
+            salad: new Salad()
         };
-        this.handleFoundationChange = this.handleFoundationChange.bind(this);
-        this.handleDressingChange = this.handleDressingChange.bind(this);
+        this.handleFoundation = this.handleFoundation.bind(this);
+        this.handleProtein = this.handleProtein.bind(this);
+        this.handleExtra = this.handleExtra.bind(this);
+        this.handleDressing = this.handleDressing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    handleFoundationChange(event) {
+    handleFoundation(event) {
         this.setState({ foundation: event.target.value });
     }
 
-    handleProteinChange(event) {
+    handleProtein(event) {
+        let proteins = [...this.state.protein]
 
+        if (event.target.checked) {
+            proteins.push(event.target.value)
+        } else {
+            this.proteins.splice(this.proteins.indexOf(event.target.value, 1));
+        }
+        this.setState({ protein: proteins })
     }
 
-    handleExtraChange(event) {
+    handleExtra(event) {
+        let extras = [...this.state.extra]
 
+        if (event.target.checked) {
+            extras.push(event.target.value)
+        } else {
+            this.extras.splice(this.extras.indexOf(event.target.value, 1));
+        }
+        this.setState({ extra: extras })
     }
 
-
-    handleDressingChange(event) {
+    handleDressing(event) {
         this.setState({ dressing: event.target.value });
     }
 
+    createSalad() {
+        console.log(this.state.foundation)
+        console.log(this.state.protein)
+        console.log(this.state.extra)
+        console.log(this.state.dressing)
+    }
+
+    clearState() {
+        this.setState({
+            foundation: [],
+            protein: [],
+            extra: [],
+            dressing: [],
+            salad: new Salad()
+        })
+    }
+
     handleSubmit(event) {
-        alert('Basen är: ' + this.state.foundation + 'Dressingen är: ' + this.state.dressing);
+        this.createSalad();
+        //this.clearState();
         event.preventDefault();
     }
 
@@ -64,7 +101,7 @@ class ComposeSalad extends React.Component {
             <div className="container" onSubmit={this.handleSubmit}>
                 <form>
                     <h4>Bas:</h4>
-                    <select value={this.state.foundation} onChange={this.handleFoundationChange}>
+                    <select class="browser-default custom-select" value={this.state.foundation} onChange={this.handleFoundation}>
                         <option value="" selected disabled hidden>Välj salladsbas</option>
                         {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
@@ -73,42 +110,46 @@ class ComposeSalad extends React.Component {
 
                     <h4>Protein:</h4>
 
-                    {proteins.map(name => (
-                        <div key={name}>
+                    {proteins.map(ingredient => (
+                        <div key={ingredient}>
                             <input
-                                type="Checkbox"
+                                type="checkbox"
                                 name="protein"
-                                value={name}
-                                checked={this.state.protein.includes(name)}
-                                onChange={this.handleProteinChange}
+                                value={ingredient}
+                                checked={this.setState()}
+                                onChange={this.handleProtein}
                             />
-                            {" " + name + " +" + inventory[name].price + " kr"}</div>
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
                     ))}
                     <p></p>
 
                     <h4>Extraingredienser:</h4>
-                    {extras.map(name => (
-                        <div key={name}>
+                    {extras.map(ingredient => (
+                        <div key={ingredient}>
                             <input
-                                type="Checkbox"
+                                type="checkbox"
                                 name="extras"
-                                value={name}
-                                checked={this.state.extras.includes(name)}
-                                onChange={this.handleProteinChange}
+                                value={ingredient}
+                                checked={this.setState()}
+                                onChange={this.handleExtra}
                             />
-                            {" " + name + " +" + inventory[name].price + " kr"}</div>
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
                     ))}
                     <p></p>
 
                     <h4>Dressing:</h4>
-                    <select value={this.state.dressings} onChange={this.handleDressingChange}>
+                    <select class="browser-default custom-select" value={this.state.dressings} onChange={this.handleDressing}>
                         <option value="" selected disabled hidden>Välj salladsdressing</option>
                         {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
                     </select>
                     <p></p>
-
-                    <input type="submit" value="Lägg till sallad" />
+                    <button
+                        type="submit"
+                        className="btn btn-primary"
+                        data-target="./ComposeSalad">
+                        Lägg till sallad
+                    </button>
                 </form>
             </div>
         );
