@@ -8,7 +8,7 @@ class ComposeSalad extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            foundation: [],
+            foundation:[],
             protein: [],
             extra: [],
             dressing: [],
@@ -19,6 +19,16 @@ class ComposeSalad extends React.Component {
         this.handleExtra = this.handleExtra.bind(this);
         this.handleDressing = this.handleDressing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+
+    }
+
+    getInventory() {
+        const inventory = this.props.inventory;
+
+        if (!inventory) {
+            alert("inventory is undefined in ComposeSalad");
+        }
+        return inventory;
     }
 
     handleFoundation(event) {
@@ -31,7 +41,7 @@ class ComposeSalad extends React.Component {
         if (event.target.checked) {
             proteins.push(event.target.value)
         } else {
-            this.proteins.splice(this.proteins.indexOf(event.target.value, 1));
+            proteins.splice(proteins.indexOf(event.target.value, 1));
         }
         this.setState({ protein: proteins })
     }
@@ -42,7 +52,7 @@ class ComposeSalad extends React.Component {
         if (event.target.checked) {
             extras.push(event.target.value)
         } else {
-            this.extras.splice(this.extras.indexOf(event.target.value, 1));
+            extras.splice(extras.indexOf(event.target.value, 1));
         }
         this.setState({ extra: extras })
     }
@@ -52,10 +62,12 @@ class ComposeSalad extends React.Component {
     }
 
     createSalad() {
-        console.log(this.state.foundation)
-        console.log(this.state.protein)
-        console.log(this.state.extra)
-        console.log(this.state.dressing)
+        this.state.salad.add('foundation', this.state.foundation);
+        this.state.protein.forEach(e => this.state.salad.add('protein', e));
+        this.state.extra.forEach(e => this.state.salad.add('extra', e));
+        this.state.salad.add('dressing', this.state.dressing);
+        
+        console.log(this.state.salad)
     }
 
     clearState() {
@@ -70,16 +82,13 @@ class ComposeSalad extends React.Component {
 
     handleSubmit(event) {
         this.createSalad();
-        //this.clearState();
+        this.clearState();
         event.preventDefault();
     }
 
     render() {
-        const inventory = this.props.inventory;
 
-        if (!inventory) {
-            alert("inventory is undefined in ComposeSalad");
-        }
+        const inventory = this.getInventory();
 
         let foundations = Object.keys(inventory).filter(
             name => inventory[name].foundation
@@ -116,7 +125,7 @@ class ComposeSalad extends React.Component {
                                 type="checkbox"
                                 name="protein"
                                 value={ingredient}
-                                checked={this.setState()}
+                                checked={this.state.protein.includes(ingredient)}
                                 onChange={this.handleProtein}
                             />
                             {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
@@ -130,7 +139,7 @@ class ComposeSalad extends React.Component {
                                 type="checkbox"
                                 name="extras"
                                 value={ingredient}
-                                checked={this.setState()}
+                                checked={this.state.extra.includes(ingredient)}
                                 onChange={this.handleExtra}
                             />
                             {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
@@ -138,7 +147,7 @@ class ComposeSalad extends React.Component {
                     <p></p>
 
                     <h4>Dressing:</h4>
-                    <select class="browser-default custom-select" value={this.state.dressings} onChange={this.handleDressing}>
+                    <select class="browser-default custom-select" value={this.state.dressing} onChange={this.handleDressing}>
                         <option value="" selected disabled hidden>Välj salladsdressing</option>
                         {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
