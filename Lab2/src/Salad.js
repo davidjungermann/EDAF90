@@ -1,6 +1,4 @@
-'use strict';
-const ingredients = require("./inventory.ES6.js");
-
+import inventory from './inventory.ES6';
 export default class Salad {
     constructor() {
         this.foundation = [];
@@ -9,38 +7,43 @@ export default class Salad {
         this.dressing = [];
     }
 
-    add(ingrType, ingredient) {
+    add(name, ingredient) {
 
-        if (ingrType === 'foundation') {
-            this.foundation.push(ingredient);
-        } else if (ingrType === 'protein') {
-            this.protein.push(ingredient);
-        } else if (ingrType === 'extra') {
-            this.extra.push(ingredient);
-        } else if (ingrType === 'dressing') {
-            this.dressing.push(ingredient);
+        let ingrObj = {
+            name: name,
+            ...inventory[name]
+        }
+
+        if (ingredient.hasOwnProperty('foundation')) {
+            this.foundation.push(ingrObj);
+        } else if (ingredient.hasOwnProperty('protein')) {
+            this.protein.push(ingrObj);
+        } else if (ingredient.hasOwnProperty('extra')) {
+            this.extra.push(ingrObj);
+        } else if (ingredient.hasOwnProperty('dressing')) {
+            this.dressing.push(ingrObj);
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
     }
 
-    remove(ingrType, ingredient) {
+    remove(ingredient) {
 
-        if (ingrType === 'foundation') {
+        if (ingredient.hasOwnProperty('foundation')) {
             this.foundation.splice(this.foundation.indexOf(ingredient, 1));
-        } else if (ingrType === 'protein') {
+        } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.splice(this.protein.indexOf(ingredient, 1));
-        } else if (ingrType === 'extra') {
+        } else if (ingredient.hasOwnProperty('extra')) {
             this.extra.splice(this.extra.indexOf(ingredient, 1));
-        } else if (ingrType === 'dressing') {
+        } else if (ingredient.hasOwnProperty('dressing')) {
             this.dressing.splice(this.dressing.indexOf(ingredient, 1));
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
     }
-
+    // Task 7
     price() {
         let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
-        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
+        return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
     }
 }
