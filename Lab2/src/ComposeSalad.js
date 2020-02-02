@@ -8,10 +8,10 @@ class ComposeSalad extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            foundation:[],
+            foundation: '',
             protein: [],
             extra: [],
-            dressing: [],
+            dressing: '',
             salad: new Salad()
         };
         this.handleFoundation = this.handleFoundation.bind(this);
@@ -67,15 +67,16 @@ class ComposeSalad extends React.Component {
         this.state.extra.forEach(e => this.state.salad.add('extra', e));
         this.state.salad.add('dressing', this.state.dressing);
         
+        this.props.submitSalad(this.state.salad);
         console.log(this.state.salad)
     }
 
     clearState() {
         this.setState({
-            foundation: [],
+            foundation: '',
             protein: [],
             extra: [],
-            dressing: [],
+            dressing: '',
             salad: new Salad()
         })
     }
@@ -110,8 +111,8 @@ class ComposeSalad extends React.Component {
             <div className="container" onSubmit={this.handleSubmit}>
                 <form>
                     <h4>Bas:</h4>
-                    <select class="browser-default custom-select" value={this.state.foundation} onChange={this.handleFoundation}>
-                        <option value="" selected disabled hidden>Välj salladsbas</option>
+                    <select className="browser-default custom-select" value={this.state.foundation} onChange={this.handleFoundation}>
+                        <option value="" disabled hidden>Välj salladsbas</option>
                         {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
                     </select>
@@ -147,8 +148,8 @@ class ComposeSalad extends React.Component {
                     <p></p>
 
                     <h4>Dressing:</h4>
-                    <select class="browser-default custom-select" value={this.state.dressing} onChange={this.handleDressing}>
-                        <option value="" selected disabled hidden>Välj salladsdressing</option>
+                    <select className="browser-default custom-select" value={this.state.dressing} onChange={this.handleDressing}>
+                        <option value="" disabled hidden>Välj salladsdressing</option>
                         {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
                     </select>
