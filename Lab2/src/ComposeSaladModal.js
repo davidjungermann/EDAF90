@@ -5,14 +5,6 @@ class ComposeSaladModal extends React.Component {
   render() {
     return (
       <div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#ComposeSaladModal"
-        >
-          Komponera din egen sallad
-        </button>
         <div
           className="modal fade"
           id="ComposeSaladModal"
