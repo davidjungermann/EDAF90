@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 import inventory from './inventory.ES6';
 import ComposeSaladModal from "./ComposeSaladModal";
-import ComposeSalad from "./ComposeSalad";
+import OrderView from "./OrderView";
 
 class App extends React.Component {
   constructor(props) {
@@ -18,7 +18,12 @@ class App extends React.Component {
     let tempSalads = [...this.state.salads];
     tempSalads.push(salad)
     this.setState({ salads: tempSalads })
-    console.log(salad)
+  }
+
+  saladRemove(salad) {
+    let tempSalads = [...this.state.salads];
+    tempSalads.splice(tempSalads.indexOf(salad), 1);
+    this.setState({salads: tempSalads})
   }
 
   render() {
@@ -39,6 +44,7 @@ class App extends React.Component {
       </button>
         </div>
         <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} />
+        <OrderView orderList={this.state.salads}></OrderView>
       </div>
     );
   }
