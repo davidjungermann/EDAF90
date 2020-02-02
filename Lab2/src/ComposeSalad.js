@@ -67,8 +67,7 @@ class ComposeSalad extends React.Component {
         this.state.extra.forEach(e => this.state.salad.add('extra', e));
         this.state.salad.add('dressing', this.state.dressing);
         
-        this.props.submitSalad(this.state.salad);
-        console.log(this.state.salad)
+        this.props.saladSubmit(this.state.salad)
     }
 
     clearState() {

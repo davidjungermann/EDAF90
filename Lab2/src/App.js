@@ -2,12 +2,15 @@ import React from 'react';
 import './App.css';
 import inventory from './inventory.ES6';
 import ComposeSaladModal from "./ComposeSaladModal";
+import ComposeSalad from "./ComposeSalad";
 
 class App extends React.Component {
   constructor(props) {
     super(props);
+    this.saladSubmit = this.saladSubmit.bind(this);
     this.state = {
-      salads: []
+      salads: [],
+      inventory: []
     };
   }
 
@@ -15,6 +18,7 @@ class App extends React.Component {
     let tempSalads = [...this.state.salads];
     tempSalads.push(salad)
     this.setState({ salads: tempSalads })
+    console.log(salad)
   }
 
   render() {
@@ -34,7 +38,7 @@ class App extends React.Component {
             Komponera din egen sallad
       </button>
         </div>
-        <ComposeSaladModal inventory={inventory} />
+        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} />
       </div>
     );
   }
