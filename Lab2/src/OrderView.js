@@ -11,7 +11,7 @@ class OrderView extends React.Component {
             <ul className="container w-50" id="salads">
                 {this.props.orderList.map(salad =>
                     <li key={shortid.generate()} className='list-group-item'>
-                        {"Bas: " + salad.foundation.toString() + " Protein: " + salad.protein + " Extra: " + salad.extra + " Dressing: " + salad.dressing}
+                        {salad.print(salad)}
                         <button type='button' className="btn btn-danger" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
                         <span class="badge badge-primary badge-pill">{salad.price()}</span>
                     </li>)}

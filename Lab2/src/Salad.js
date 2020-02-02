@@ -46,4 +46,12 @@ export default class Salad {
         let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
     }
+
+    print(salad) {
+        let proteinString = " Protein: ";
+        let extraString = " Extra: ";
+        salad.protein.forEach(e => proteinString += e.name + ", ");
+        salad.extra.forEach(e => extraString += e.name + ", ");
+        return "Bas: " + salad.foundation[0].name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing[0].name;
+    }
 }
