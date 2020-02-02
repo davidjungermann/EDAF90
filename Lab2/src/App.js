@@ -8,22 +8,22 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.saladSubmit = this.saladSubmit.bind(this);
+    this.saladRemove = this.saladRemove.bind(this);
     this.state = {
-      salads: [],
-      inventory: []
+      order: []
     };
   }
 
   saladSubmit(salad) {
-    let tempSalads = [...this.state.salads];
+    let tempSalads = [...this.state.order];
     tempSalads.push(salad)
-    this.setState({ salads: tempSalads })
+    this.setState({ order: tempSalads })
   }
 
   saladRemove(salad) {
-    let tempSalads = [...this.state.salads];
+    let tempSalads = [...this.state.order];
     tempSalads.splice(tempSalads.indexOf(salad), 1);
-    this.setState({salads: tempSalads})
+    this.setState({order: tempSalads})
   }
 
   render() {
@@ -43,8 +43,8 @@ class App extends React.Component {
             Komponera din egen sallad
       </button>
         </div>
-        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} />
-        <OrderView orderList={this.state.salads}></OrderView>
+        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} saladRemove={this.saladRemove} />
+        <OrderView orderList={this.state.order} saladRemove={this.saladRemove}></OrderView>
       </div>
     );
   }
