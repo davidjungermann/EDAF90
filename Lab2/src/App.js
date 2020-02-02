@@ -30,10 +30,9 @@ class App extends React.Component {
     return (
       <div>
         <div className="jumbotron text-center">
-          <h1 className="display-4">Brunt & Bajs</h1>
+          <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
           <hr className="my-4" />
-          <p>Gör din rövsallad här!</p>
           <button
             type="button"
             className="btn btn-primary"

@@ -5,14 +5,20 @@ import React from "react";
 const shortid = require('shortid');
 
 class OrderView extends React.Component {
+
     render() {
         return (
-            <ul class="list-group" id="salads">
+            <ul className="container w-50" id="salads">
                 {this.props.orderList.map(salad =>
-                    <li key={shortid.generate()} class='list-group-item'>{salad.price()}<button type='button' className='btn btn-danger' onClick={() => this.props.saladRemove(salad)}>Ta bort sallad</button></li>)}
+                    <li key={shortid.generate()} className='list-group-item'>
+                        {"Bas: " + salad.foundation + " Protein: " + salad.protein + " Extra: " + salad.extra + " Dressing: " + salad.dressing}
+                        <button type='button' className="btn btn-danger" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
+                        <span class="badge badge-primary badge-pill">{salad.price()}</span>
+                    </li>)}
             </ul>
 
         );
     }
 }
+
 export default OrderView;

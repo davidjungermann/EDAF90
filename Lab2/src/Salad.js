@@ -1,8 +1,11 @@
-export default class Salad { 
+'use strict';
+const ingredients = require("./inventory.ES6.js");
+
+export default class Salad {
     constructor() {
         this.foundation = [];
         this.protein = [];
-        this.extras = [];
+        this.extra = [];
         this.dressing = [];
     }
 
@@ -13,7 +16,7 @@ export default class Salad {
         } else if (ingrType === 'protein') {
             this.protein.push(ingredient);
         } else if (ingrType === 'extra') {
-            this.extras.push(ingredient);
+            this.extra.push(ingredient);
         } else if (ingrType === 'dressing') {
             this.dressing.push(ingredient);
         } else {
@@ -28,7 +31,7 @@ export default class Salad {
         } else if (ingrType === 'protein') {
             this.protein.splice(this.protein.indexOf(ingredient, 1));
         } else if (ingrType === 'extra') {
-            this.extras.splice(this.extras.indexOf(ingredient, 1));
+            this.extra.splice(this.extra.indexOf(ingredient, 1));
         } else if (ingrType === 'dressing') {
             this.dressing.splice(this.dressing.indexOf(ingredient, 1));
         } else {
@@ -37,7 +40,7 @@ export default class Salad {
     }
 
     price() {
-        let salad = [].concat(this.foundation, this.protein, this.extras, this.dressing);
-        return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
+        let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
+        return salad.reduce((sum, ingredient) => sum += ingredients[ingredient].price, 0);
     }
 }
