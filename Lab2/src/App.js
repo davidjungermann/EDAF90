@@ -35,7 +35,7 @@ class App extends React.Component {
           <hr className="my-4" />
           <button
             type="button"
-            className="btn btn-primary"
+            className="btn btn-success"
             data-toggle="modal"
             data-target="#ComposeSaladModal"
           >

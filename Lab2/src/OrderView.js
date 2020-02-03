@@ -10,12 +10,20 @@ class OrderView extends React.Component {
 
     render() {
         return (
-            <ul className="container">
+            <ul className="container w-50 list-group">
                 {this.props.orderList.map(salad =>
-                    <li key={shortid.generate()} className='list-group-item fixed'>
-                        {salad.print(salad)}
-                        <button type='button' className="btn btn-danger right-button" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
-                        <span className="badge badge-primary badge-pill pill" >{salad.price()}</span>
+                    <li key={shortid.generate()} className="list-group-item list-group-item-success" style={{
+                        marginTop: 10
+                    }}>
+                        <span style={{
+                            display: "block",
+                            width: 500
+                        }}>{salad.print(salad)}
+                        </span>
+                        <div className="col text-center" style={{height: "50%"}}>
+                            <span className="badge badge-primary badge-pill float-right">{salad.price() + " kr"}</span>
+                            <button type='button' className="btn btn-danger float-right" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
+                        </div>
                     </li>)
                 }
             </ul>

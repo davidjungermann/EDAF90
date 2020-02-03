@@ -155,7 +155,7 @@ class ComposeSalad extends React.Component {
                     <p></p>
                     <button
                         type="submit"
-                        className="btn btn-primary"
+                        className="btn btn-success"
                         data-target="./ComposeSalad">
                         Lägg till sallad
                     </button>
