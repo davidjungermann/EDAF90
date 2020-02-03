@@ -10,7 +10,7 @@ class OrderView extends React.Component {
 
     render() {
         return (
-            <ul className="container w-50 list-group">
+            <ul className="container w-50">
                 {this.props.orderList.map(salad =>
                     <li key={shortid.generate()} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
                         marginTop: 10
@@ -30,7 +30,6 @@ class OrderView extends React.Component {
                     </li>)
                 }
             </ul>
-
         );
     }
 }

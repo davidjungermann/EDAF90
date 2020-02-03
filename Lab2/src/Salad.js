@@ -1,10 +1,11 @@
 import inventory from './inventory.ES6';
 export default class Salad {
     constructor() {
-        this.foundation = [];
+        this.foundation = '';
         this.protein = [];
         this.extra = [];
-        this.dressing = [];
+        this.dressing = '';
+        this.id = 0;
     }
 
     add(name, ingredient) {
@@ -15,13 +16,13 @@ export default class Salad {
         }
 
         if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation.push(ingrObj);
+            this.foundation = ingrObj
         } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.push(ingrObj);
         } else if (ingredient.hasOwnProperty('extra')) {
             this.extra.push(ingrObj);
         } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing.push(ingrObj);
+            this.dressing = ingrObj;
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
@@ -30,13 +31,13 @@ export default class Salad {
     remove(ingredient) {
 
         if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation.splice(this.foundation.indexOf(ingredient, 1));
+            this.foundation = '';
         } else if (ingredient.hasOwnProperty('protein')) {
             this.protein.splice(this.protein.indexOf(ingredient, 1));
         } else if (ingredient.hasOwnProperty('extra')) {
             this.extra.splice(this.extra.indexOf(ingredient, 1));
         } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing.splice(this.dressing.indexOf(ingredient, 1));
+            this.dressing = '';
         } else {
             console.warn("Provided ingredient type does not exist.")
         }
@@ -52,6 +53,6 @@ export default class Salad {
         let extraString = " Extra: ";
         salad.protein.forEach(e => proteinString += e.name + ", ");
         salad.extra.forEach(e => extraString += e.name + ", ");
-        return "Bas: " + salad.foundation[0].name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing[0].name;
+        return "Bas: " + salad.foundation.name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing.name;
     }
 }

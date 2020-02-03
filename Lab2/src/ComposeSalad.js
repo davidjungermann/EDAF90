@@ -113,7 +113,7 @@ class ComposeSalad extends React.Component {
                     <select className="browser-default custom-select" value={this.state.foundation} onChange={this.handleFoundation}>
                         <option value="" disabled hidden>Välj salladsbas</option>
                         {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
+                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                     </select>
                     <p></p>
 
@@ -150,7 +150,7 @@ class ComposeSalad extends React.Component {
                     <select className="browser-default custom-select" value={this.state.dressing} onChange={this.handleDressing}>
                         <option value="" disabled hidden>Välj salladsdressing</option>
                         {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' (' + inventory[ingredient].price + 'kr' + ')'}</option>)}
+                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                     </select>
                     <p></p>
                     <button
