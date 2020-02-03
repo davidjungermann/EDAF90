@@ -42,7 +42,7 @@ class App extends React.Component {
             Komponera din egen sallad
       </button>
         </div>
-        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} saladRemove={this.saladRemove} />
+        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} saladRemove={this.saladRemove}/>
         <OrderView orderList={this.state.order} saladRemove={this.saladRemove}></OrderView>
       </div>
     );

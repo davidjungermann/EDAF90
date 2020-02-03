@@ -11,7 +11,7 @@ class ComposeSalad extends React.Component {
             foundation: '',
             protein: [],
             extra: [],
-            dressing: '',
+            dressing: '', 
             salad: new Salad()
         };
         this.handleFoundation = this.handleFoundation.bind(this);
