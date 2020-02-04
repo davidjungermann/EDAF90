@@ -1,13 +1,13 @@
 import inventory from './inventory.ES6';
 import nextId from "react-id-generator";
 
+let getUniqueId = nextId();
 export default class Salad {
     constructor() {
         this.foundation = '';
         this.protein = [];
         this.extra = [];
         this.dressing = '';
-        this.id = nextId();
     }
 
     add(name, ingredient) {
@@ -56,5 +56,9 @@ export default class Salad {
         salad.protein.forEach(e => proteinString += e.name + ", ");
         salad.extra.forEach(e => extraString += e.name + ", ");
         return "Bas: " + salad.foundation.name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing.name;
+    }
+
+    getUniqueId() {
+        return getUniqueId;
     }
 }

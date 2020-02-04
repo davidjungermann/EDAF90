@@ -12,7 +12,7 @@ class OrderView extends React.Component {
         return (
             <ul className="container w-50">
                 {this.props.orderList.map(salad =>
-                    <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
+                    <li key={salad.getUniqueId()} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
                         marginTop: 10
                     }}>
                         <br></br>
@@ -21,7 +21,7 @@ class OrderView extends React.Component {
                             width: 500
                         }}>{salad.print(salad)}
                         </span>
-                        <button type='button' className="btn btn-danger float-right row justify-content-center align-self-center" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
+                        <button type='button' className="btn btn-danger float-right row justify-content-center align-self-center" onClick={() => this.props.saladRemove(salad.id)}>Ta bort</button>
                         <span className="badge badge-primary badge-pill row justify-content-center align-self-center" style={{
                             position: "absolute",
                             right: "40px",
