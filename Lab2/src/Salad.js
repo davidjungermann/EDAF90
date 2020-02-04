@@ -7,7 +7,9 @@ export default class Salad {
         this.protein = [];
         this.extra = [];
         this.dressing = '';
-        this.id = nextId();
+
+        // Was finished before updated lab instruction, but this does essentially the same thing. 
+        Object.defineProperty(this, "id",  {value: nextId(), writable: false});
     }
 
     add(name, ingredient) {
@@ -57,4 +59,5 @@ export default class Salad {
         salad.extra.forEach(e => extraString += e.name + ", ");
         return "Bas: " + salad.foundation.name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing.name;
     }
+
 }
