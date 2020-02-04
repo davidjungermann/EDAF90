@@ -11,8 +11,7 @@ class ComposeSalad extends React.Component {
             foundation: '',
             protein: [],
             extra: [],
-            dressing: '', 
-            salad: new Salad()
+            dressing: ''
         };
         this.handleFoundation = this.handleFoundation.bind(this);
         this.handleProtein = this.handleProtein.bind(this);
@@ -63,10 +62,12 @@ class ComposeSalad extends React.Component {
 
     createSalad() {
         let inventory = this.getInventory();
-        this.state.salad.add(this.state.foundation, inventory[this.state.foundation]);
-        this.state.protein.forEach(e => this.state.salad.add(e, inventory[e]));
-        this.state.extra.forEach(e => this.state.salad.add(e, inventory[e]));
-        this.state.salad.add(this.state.dressing, inventory[this.state.dressing]);
+        let salad = new Salad();
+        salad.add(this.state.foundation, inventory[this.state.foundation]);
+        this.state.protein.forEach(e => salad.add(e, inventory[e]));
+        this.state.extra.forEach(e => salad.add(e, inventory[e]));
+        salad.add(this.state.dressing, inventory[this.state.dressing]);
+        return salad;
     }
 
     clearState() {
@@ -74,14 +75,12 @@ class ComposeSalad extends React.Component {
             foundation: '',
             protein: [],
             extra: [],
-            dressing: '',
-            salad: new Salad()
+            dressing: ''
         })
     }
 
     handleSubmit(event) {
-        this.createSalad();
-        this.props.saladSubmit(this.state.salad);
+        this.props.saladSubmit(this.createSalad());
         this.clearState();
         event.preventDefault();
     }
