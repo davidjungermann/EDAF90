@@ -8,7 +8,6 @@ export default class Salad {
         this.extra = [];
         this.dressing = '';
 
-        // Was finished before updated lab instruction, but this does essentially the same thing. 
         Object.defineProperty(this, "id",  {value: nextId(), writable: false});
     }
 
