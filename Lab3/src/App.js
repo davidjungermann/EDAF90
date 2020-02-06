@@ -3,6 +3,8 @@ import './App.css';
 import inventory from './inventory.ES6';
 import ComposeSaladModal from "./ComposeSaladModal";
 import OrderView from "./OrderView";
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +25,7 @@ class App extends React.Component {
   saladRemove(salad) {
     let tempSalads = [...this.state.order];
     tempSalads.splice(tempSalads.indexOf(salad), 1);
-    this.setState({order: tempSalads})
+    this.setState({ order: tempSalads })
   }
 
   render() {
@@ -32,18 +34,17 @@ class App extends React.Component {
         <div className="jumbotron text-center">
           <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
-          <hr className="my-4" />
-          <button
-            type="button"
-            className="btn btn-success"
-            data-toggle="modal"
-            data-target="#ComposeSaladModal"
-          >
-            Komponera din egen sallad
-      </button>
         </div>
-        <ComposeSaladModal inventory={inventory} saladSubmit={this.saladSubmit} saladRemove={this.saladRemove}/>
-        <OrderView orderList={this.state.order} saladRemove={this.saladRemove}></OrderView>
+        <Router>
+          <ul className="nav nav-pills">
+            <li>
+              <Link className="nav-link" to="./ComposeSalad">Komponera din sallad</Link>
+            </li>
+            <li>
+              <Link className="nav-link" to="./OrderView">Beställning</Link>
+            </li>
+          </ul>
+        </Router>
       </div>
     );
   }
