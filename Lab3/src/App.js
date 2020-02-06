@@ -30,22 +30,20 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <div className="jumbotron text-center">
+        <div className="jumbotron text-center" style={{"margin-top":"-50px"}}>
           <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
-        </div>
-        <Router>
-          <ul className="nav nav-pills">
+          <Router>
+          <ul className="nav nav-pills" style={{"margin-bottom":"-60px"}}>
             <li>
-              <Link className="nav-link" to="./ComposeSalad">Komponera din sallad</Link>
+              <Link className="nav-link" to="./ComposeSalad" style={{"color":"green"}}>Komponera din sallad</Link>
             </li>
             <li>
-              <Link className="nav-link" to="./OrderView">Beställning</Link>
+              <Link className="nav-link" to="./OrderView" style={{"color":"green"}}>Beställning</Link>
             </li>
           </ul>
         </Router>
-      </div>
+        </div>
     );
   }
 }
