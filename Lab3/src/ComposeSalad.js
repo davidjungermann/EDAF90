@@ -81,6 +81,7 @@ class ComposeSalad extends React.Component {
 
     handleSubmit(event) {
         this.props.saladSubmit(this.createSalad());
+        this.props.history.push("/order-view");
         this.clearState();
         event.preventDefault();
     }
@@ -156,7 +157,7 @@ class ComposeSalad extends React.Component {
                         type="submit"
                         className="btn btn-success"
                         data-target="./ComposeSalad">
-                        Lägg till sallad
+                        Lägg till sallad och gå till varukorgen
                     </button>
                 </form>
             </div>
