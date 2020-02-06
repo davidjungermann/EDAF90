@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import inventory from './inventory.ES6';
-import ComposeSaladModal from "./ComposeSaladModal";
+import ComposeSalad from "./ComposeSalad";
 import OrderView from "./OrderView";
 import { BrowserRouter as Router, Route, Link } from "react-router-dom";
 
@@ -28,22 +28,36 @@ class App extends React.Component {
     this.setState({ order: tempSalads })
   }
 
+  composeSaladElem() {
+    return (params) => <ComposeSalad {...params} inventory={inventory}
+      saladSubmit={this.saladSubmit} />;
+  }
+
+  composeOrderElem() {
+    return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} />;
+  }
+
   render() {
+    const compose = this.composeSaladElem();
+    const orders = this.composeOrderElem();
+
     return (
-        <div className="jumbotron text-center" style={{"margin-top":"-50px"}}>
+      <Router>
+        <div className="jumbotron text-center" style={{ "margin-top": "-50px" }}>
           <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
-          <Router>
-          <ul className="nav nav-pills" style={{"margin-bottom":"-60px"}}>
+          <ul className="nav nav-pills" style={{ "margin-bottom": "-60px" }}>
+            <Route path="/compose-salad" render={compose}></Route>
+            <Route path="/order-view" render={orders}></Route>
             <li>
-              <Link className="nav-link" to="./ComposeSalad" style={{"color":"green"}}>Komponera din sallad</Link>
+              <Link className="nav-link" to="/compose-salad" style={{ "color": "green" }}>Komponera din sallad</Link>
             </li>
             <li>
-              <Link className="nav-link" to="./OrderView" style={{"color":"green"}}>Beställning</Link>
+              <Link className="nav-link" to="/order-view" style={{ "color": "green" }}>Beställning</Link>
             </li>
           </ul>
-        </Router>
         </div>
+      </Router>
     );
   }
 }
