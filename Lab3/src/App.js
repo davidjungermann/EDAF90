@@ -55,7 +55,7 @@ class App extends React.Component {
             </li>
           </ul>
         </div>
-        <div className="container w-50">
+        <div className="container w-25">
           <Route path="/compose-salad" render={compose}></Route>
         </div>
         <div>
