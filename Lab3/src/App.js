@@ -47,8 +47,6 @@ class App extends React.Component {
           <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
           <ul className="nav nav-pills" style={{ "margin-bottom": "-60px" }}>
-            <Route path="/compose-salad" render={compose}></Route>
-            <Route path="/order-view" render={orders}></Route>
             <li>
               <Link className="nav-link" to="/compose-salad" style={{ "color": "green" }}>Komponera din sallad</Link>
             </li>
@@ -56,6 +54,10 @@ class App extends React.Component {
               <Link className="nav-link" to="/order-view" style={{ "color": "green" }}>Beställning</Link>
             </li>
           </ul>
+        </div>
+        <div className="container w-50">
+          <Route path="/compose-salad" render={compose}></Route>
+          <Route path="/order-view" render={orders}></Route>
         </div>
       </Router>
     );
