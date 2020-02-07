@@ -83,8 +83,8 @@ class ComposeSalad extends React.Component {
         this.props.saladSubmit(this.createSalad());
         this.props.history.push("/order-view");
         this.clearState();
-        event.target.classList.add("was-validated");
         event.preventDefault();
+        event.target.classList.add("was-validated");
     }
 
     render() {
@@ -108,66 +108,66 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-            <div>
-                <form className="form-group" onSubmit={this.handleSubmit}>
-                    <h4>Bas:</h4>
-                    <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
-                        <option selected disabled value="">Välj salladsbas</option>
-                        {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                    </select>
-                    <div class="invalid-feedback">
-                        Välj en bas till din sallad. 
+
+            <form className="form-group" onSubmit={this.handleSubmit}>
+                <h4>Bas:</h4>
+                <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
+                    <option selected disabled value="">Välj salladsbas</option>
+                    {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
+                        {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                </select>
+                <div class="invalid-feedback">
+                    Välj en bas till din sallad.
                     </div>
-                    <p></p>
+                <p></p>
 
-                    <h4>Protein:</h4>
+                <h4>Protein:</h4>
 
-                    {proteins.map(ingredient => (
-                        <div key={ingredient}>
-                            <input
-                                type="checkbox"
-                                name="protein"
-                                value={ingredient}
-                                checked={this.state.protein.includes(ingredient)}
-                                onChange={this.handleProtein}
-                            />
-                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
-                    ))}
-                    <p></p>
+                {proteins.map(ingredient => (
+                    <div key={ingredient}>
+                        <input
+                            type="checkbox"
+                            name="protein"
+                            value={ingredient}
+                            checked={this.state.protein.includes(ingredient)}
+                            onChange={this.handleProtein}
+                        />
+                        {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                ))}
+                <p></p>
 
-                    <h4>Extraingredienser:</h4>
-                    {extras.map(ingredient => (
-                        <div key={ingredient}>
-                            <input
-                                type="checkbox"
-                                name="extras"
-                                value={ingredient}
-                                checked={this.state.extra.includes(ingredient)}
-                                onChange={this.handleExtra}
-                            />
-                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
-                    ))}
-                    <p></p>
+                <h4>Extraingredienser:</h4>
+                {extras.map(ingredient => (
+                    <div key={ingredient}>
+                        <input
+                            type="checkbox"
+                            name="extras"
+                            value={ingredient}
+                            checked={this.state.extra.includes(ingredient)}
+                            onChange={this.handleExtra}
+                        />
+                        {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                ))}
+                <p></p>
 
-                    <h4>Dressing:</h4>
-                    <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
-                        <option selected disabled value="">Välj salladsdressing</option>
-                        {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                    </select>
-                    <div class="invalid-feedback">
-                        Please select a valid state.
+                <h4>Dressing:</h4>
+                <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
+                    <option selected disabled value="">Välj salladsdressing</option>
+                    {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
+                        {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                </select>
+                <div class="invalid-feedback">
+                    Please select a valid state.
                     </div>
-                    <p></p>
-                    <button
-                        type="submit"
-                        className="btn btn-success"
-                        data-target="./ComposeSalad">
-                        Lägg till sallad och gå till varukorgen
+                <p></p>
+                <button
+                    type="submit"
+                    className="btn btn-success"
+                    data-target="./ComposeSalad">
+                    Lägg till sallad och gå till varukorgen
                     </button>
-                </form>
-            </div>
+            </form>
+
         );
     }
 }
