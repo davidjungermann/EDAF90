@@ -1,5 +1,7 @@
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import 'bootstrap-css-only/css/bootstrap.min.css';
+import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/js/bootstrap.js";
 import 'mdbreact/dist/css/mdb.css'
 import React from "react";
 import Salad from "./Salad";
@@ -80,11 +82,12 @@ class ComposeSalad extends React.Component {
     }
 
     handleSubmit(event) {
-        this.props.saladSubmit(this.createSalad());
-        this.props.history.push("/order-view");
-        this.clearState();
-        event.preventDefault();
+        if (event.target.checkValidity() === true) {
+            this.props.saladSubmit(this.createSalad());
+            this.props.history.push('/order-view');
+        }
         event.target.classList.add("was-validated");
+        event.preventDefault();
     }
 
     render() {
@@ -108,66 +111,66 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-
-            <form className="form-group" onSubmit={this.handleSubmit}>
-                <h4>Bas:</h4>
-                <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
-                    <option selected disabled value="">Välj salladsbas</option>
-                    {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
-                        {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                </select>
-                <div class="invalid-feedback">
-                    Välj en bas till din sallad.
+            <div className="form-group">
+                <form className="form-div" onSubmit={this.handleSubmit} noValidate>
+                    <h4>Bas:</h4>
+                    <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
+                        <option selected disabled value="">Välj salladsbas</option>
+                        {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
+                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                    </select>
+                    <div className="invalid-feedback">
+                        Välj en bas till din sallad.
                     </div>
-                <p></p>
+                    <p></p>
 
-                <h4>Protein:</h4>
+                    <h4>Protein:</h4>
 
-                {proteins.map(ingredient => (
-                    <div key={ingredient}>
-                        <input
-                            type="checkbox"
-                            name="protein"
-                            value={ingredient}
-                            checked={this.state.protein.includes(ingredient)}
-                            onChange={this.handleProtein}
-                        />
-                        {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
-                ))}
-                <p></p>
+                    {proteins.map(ingredient => (
+                        <div key={ingredient}>
+                            <input
+                                type="checkbox"
+                                name="protein"
+                                value={ingredient}
+                                checked={this.state.protein.includes(ingredient)}
+                                onChange={this.handleProtein}
+                            />
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                    ))}
+                    <p></p>
 
-                <h4>Extraingredienser:</h4>
-                {extras.map(ingredient => (
-                    <div key={ingredient}>
-                        <input
-                            type="checkbox"
-                            name="extras"
-                            value={ingredient}
-                            checked={this.state.extra.includes(ingredient)}
-                            onChange={this.handleExtra}
-                        />
-                        {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
-                ))}
-                <p></p>
+                    <h4>Extraingredienser:</h4>
+                    {extras.map(ingredient => (
+                        <div key={ingredient}>
+                            <input
+                                type="checkbox"
+                                name="extras"
+                                value={ingredient}
+                                checked={this.state.extra.includes(ingredient)}
+                                onChange={this.handleExtra}
+                            />
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                    ))}
+                    <p></p>
 
-                <h4>Dressing:</h4>
-                <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
-                    <option selected disabled value="">Välj salladsdressing</option>
-                    {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
-                        {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                </select>
-                <div class="invalid-feedback">
-                    Please select a valid state.
-                    </div>
-                <p></p>
-                <button
-                    type="submit"
-                    className="btn btn-success"
-                    data-target="./ComposeSalad">
-                    Lägg till sallad och gå till varukorgen
+                    <h4>Dressing:</h4>
+                    <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
+                        <option selected disabled value="">Välj salladsdressing</option>
+                        {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
+                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                    </select>
+                    <div class="invalid-feedback">
+                        Välj en dressing till din sallad.
+                </div>
+                    <p></p>
+                    <button
+                        type="submit"
+                        className="btn btn-success"
+                        data-target="./ComposeSalad">
+                        Lägg till sallad och gå till varukorgen
                     </button>
-            </form>
-
+                </form>
+            </div>
         );
     }
 }
