@@ -84,6 +84,7 @@ class ComposeSalad extends React.Component {
         this.props.history.push("/order-view");
         this.clearState();
         event.preventDefault();
+        event.target.classList.add("was-validated");
     }
 
     render() {
@@ -107,14 +108,17 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-            <div className="container" onSubmit={this.handleSubmit}>
+            <div className="form-group" onSubmit={this.handleSubmit}>
                 <form>
                     <h4>Bas:</h4>
-                    <select className="browser-default custom-select" value={this.state.foundation} onChange={this.handleFoundation}>
-                        <option value="" disabled hidden>Välj salladsbas</option>
+                    <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
+                        <option selected disabled value="">Välj salladsbas</option>
                         {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                     </select>
+                    <div class="invalid-feedback">
+                        Please choose a username.
+                        </div>
                     <p></p>
 
                     <h4>Protein:</h4>
@@ -147,11 +151,14 @@ class ComposeSalad extends React.Component {
                     <p></p>
 
                     <h4>Dressing:</h4>
-                    <select className="browser-default custom-select" value={this.state.dressing} onChange={this.handleDressing}>
-                        <option value="" disabled hidden>Välj salladsdressing</option>
+                    <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
+                        <option selected disabled value="">Välj salladsdressing</option>
                         {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
                             {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                     </select>
+                    <div class="invalid-feedback">
+                        Please select a valid state.
+                    </div>
                     <p></p>
                     <button
                         type="submit"
