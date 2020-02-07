@@ -83,8 +83,8 @@ class ComposeSalad extends React.Component {
         this.props.saladSubmit(this.createSalad());
         this.props.history.push("/order-view");
         this.clearState();
-        event.preventDefault();
         event.target.classList.add("was-validated");
+        event.preventDefault();
     }
 
     render() {
@@ -108,8 +108,8 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-            <div className="form-group" onSubmit={this.handleSubmit}>
-                <form>
+            <div>
+                <form className="form-group" onSubmit={this.handleSubmit}>
                     <h4>Bas:</h4>
                     <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
                         <option selected disabled value="">Välj salladsbas</option>
@@ -117,8 +117,8 @@ class ComposeSalad extends React.Component {
                             {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                     </select>
                     <div class="invalid-feedback">
-                        Please choose a username.
-                        </div>
+                        Välj en bas till din sallad. 
+                    </div>
                     <p></p>
 
                     <h4>Protein:</h4>
