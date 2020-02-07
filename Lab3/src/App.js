@@ -3,7 +3,8 @@ import './App.css';
 import inventory from './inventory.ES6';
 import ComposeSalad from "./ComposeSalad";
 import OrderView from "./OrderView";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import ErrorComponent from "./ErrorComponent";
+import { BrowserRouter as Router, Route, Link, Switch } from "react-router-dom";
 
 
 class App extends React.Component {
@@ -56,10 +57,10 @@ class App extends React.Component {
           </ul>
         </div>
         <div className="container w-25">
-          <Route path="/compose-salad" render={compose}></Route>
+          <Route exact path="/compose-salad" render={compose}></Route>
         </div>
         <div>
-          <Route path="/order-view" render={orders}></Route>
+          <Route exact path="/order-view" render={orders}></Route>
         </div>
       </Router>
     );
