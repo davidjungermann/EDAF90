@@ -42,7 +42,7 @@ class ComposeSalad extends React.Component {
         if (event.target.checked) {
             proteins.push(event.target.value)
         } else {
-            proteins.splice(proteins.indexOf(event.target.value, 1));
+            proteins = proteins.filter(name => (name !== event.target.value));
         }
         this.setState({ protein: proteins })
     }
@@ -53,7 +53,7 @@ class ComposeSalad extends React.Component {
         if (event.target.checked) {
             extras.push(event.target.value)
         } else {
-            extras.splice(extras.indexOf(event.target.value, 1));
+            extras = extras.filter(name => (name !== event.target.value));
         }
         this.setState({ extra: extras })
     }
@@ -111,16 +111,18 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-            <div className="form-group">
-                <form className="form-div" onSubmit={this.handleSubmit} noValidate>
-                    <h4>Bas:</h4>
-                    <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
-                        <option selected disabled value="">Välj salladsbas</option>
-                        {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                    </select>
-                    <div className="invalid-feedback">
-                        Välj en bas till din sallad.
+            <form onSubmit={this.handleSubmit}>
+                <form className="form-div" noValidate>
+                    <div class="form-group row">
+                        <h4>Bas:</h4>
+                        <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
+                            <option selected disabled value="">Välj salladsbas</option>
+                            {foundations.map(ingredient => <option key={ingredient} value={ingredient}>
+                                {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                        </select>
+                        <div className="invalid-feedback">
+                            Välj en bas till din sallad.
+                        </div>
                     </div>
                     <p></p>
 
@@ -153,15 +155,17 @@ class ComposeSalad extends React.Component {
                     ))}
                     <p></p>
 
-                    <h4>Dressing:</h4>
-                    <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
-                        <option selected disabled value="">Välj salladsdressing</option>
-                        {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
-                            {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
-                    </select>
-                    <div class="invalid-feedback">
-                        Välj en dressing till din sallad.
-                </div>
+                    <div class="form-group row">
+                        <h4>Dressing:</h4>
+                        <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
+                            <option selected disabled value="">Välj salladsdressing</option>
+                            {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
+                                {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
+                        </select>
+                        <div class="invalid-feedback">
+                            Välj en dressing till din sallad.
+                        </div>
+                    </div>
                     <p></p>
                     <button
                         type="submit"
@@ -170,7 +174,7 @@ class ComposeSalad extends React.Component {
                         Lägg till sallad och gå till varukorgen
                     </button>
                 </form>
-            </div>
+            </form>
         );
     }
 }
