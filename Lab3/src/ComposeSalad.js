@@ -5,6 +5,7 @@ import "bootstrap/dist/js/bootstrap.js";
 import 'mdbreact/dist/css/mdb.css'
 import React from "react";
 import Salad from "./Salad";
+import { BrowserRouter as Router, Route, Link} from "react-router-dom";
 
 class ComposeSalad extends React.Component {
     constructor(props) {
@@ -111,9 +112,9 @@ class ComposeSalad extends React.Component {
         );
 
         return (
-            <form onSubmit={this.handleSubmit}>
+            <div onSubmit={this.handleSubmit}>
                 <form className="form-div" noValidate>
-                    <div class="form-group row">
+                    <div className="form-group row">
                         <h4>Bas:</h4>
                         <select required className="form-control" value={this.state.foundation} onChange={this.handleFoundation}>
                             <option selected disabled value="">Välj salladsbas</option>
@@ -137,7 +138,8 @@ class ComposeSalad extends React.Component {
                                 checked={this.state.protein.includes(ingredient)}
                                 onChange={this.handleProtein}
                             />
-                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                            <Link to={"/ingredient-view/" + ingredient}  >{" " + ingredient + " +" + inventory[ingredient].price + " kr"}</Link>
+                        </div>
                     ))}
                     <p></p>
 
@@ -151,18 +153,19 @@ class ComposeSalad extends React.Component {
                                 checked={this.state.extra.includes(ingredient)}
                                 onChange={this.handleExtra}
                             />
-                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}</div>
+                            <Link to={"/ingredient-view/" + ingredient}  >{" " + ingredient + " +" + inventory[ingredient].price + " kr"}</Link>
+                            </div>
                     ))}
                     <p></p>
 
-                    <div class="form-group row">
+                    <div className="form-group row">
                         <h4>Dressing:</h4>
                         <select required className="form-control" value={this.state.dressing} onChange={this.handleDressing}>
                             <option selected disabled value="">Välj salladsdressing</option>
                             {dressings.map(ingredient => <option key={ingredient} value={ingredient}>
                                 {ingredient + ' +' + inventory[ingredient].price + 'kr'}</option>)}
                         </select>
-                        <div class="invalid-feedback">
+                        <div className="invalid-feedback">
                             Välj en dressing till din sallad.
                         </div>
                     </div>
@@ -174,7 +177,7 @@ class ComposeSalad extends React.Component {
                         Lägg till sallad och gå till varukorgen
                     </button>
                 </form>
-            </form>
+            </div>
         );
     }
 }

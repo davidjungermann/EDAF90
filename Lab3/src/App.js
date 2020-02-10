@@ -3,7 +3,7 @@ import './App.css';
 import inventory from './inventory.ES6';
 import ComposeSalad from "./ComposeSalad";
 import OrderView from "./OrderView";
-import { BrowserRouter as Router, Route, Link} from "react-router-dom";
+import { BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
 
 
 class App extends React.Component {
@@ -37,16 +37,27 @@ class App extends React.Component {
     return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} />;
   }
 
+  renderIngredient() {
+    let { ingredient } = useParams();
+
+    return (
+      <div>
+        <h3>Ingredient: {ingredient}</h3>
+        <h2>Egenskaper: {JSON.stringify(inventory[ingredient], null, 2)}</h2>
+      </div>
+    );
+  }
+
   render() {
     const compose = this.composeSaladElem();
     const orders = this.composeOrderElem();
 
     return (
       <Router>
-        <div className="jumbotron text-center" style={{ "margin-top": "-50px" }}>
+        <div className="jumbotron text-center" style={{ "marginTop": "-50px" }}>
           <h1 className="display-4">🌱 PLANTS 🌱</h1>
           <p className="lead">Lunds äckligaste sallad</p>
-          <ul className="nav nav-pills" style={{ "margin-bottom": "-60px" }}>
+          <ul className="nav nav-pills" style={{ "marginBottom": "-60px" }}>
             <li>
               <Link className="nav-link" to="/compose-salad" style={{ "color": "green" }}>Komponera din sallad</Link>
             </li>
@@ -56,10 +67,13 @@ class App extends React.Component {
           </ul>
         </div>
         <div className="container w-25">
-          <Route exact path="/compose-salad" render={compose}></Route>
+          <Route path="/compose-salad" render={compose}></Route>
         </div>
         <div>
-          <Route exact path="/order-view" render={orders}></Route>
+          <Route path="/order-view" render={orders}></Route>
+        </div>
+        <div>
+          <Route path="/ingredient-view/:ingredient" children={<this.renderIngredient />}></Route>
         </div>
       </Router>
     );
