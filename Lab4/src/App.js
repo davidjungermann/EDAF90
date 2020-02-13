@@ -22,16 +22,14 @@ class App extends React.Component {
     let params = ['foundations', 'proteins', 'extras', 'dressings'];
     let tempInventory = {};
 
-    Promise.all(params.map(param => {
-      return fetch(url + param)
-        .then(response => response.json())
-        .then(data => {
-          Promise.all(data.map(ingredient => {
-            return fetch(url + param + '/' + ingredient)
-              .then(response => response.json())
-              .then(obj => tempInventory[ingredient] = obj)
-          }))
-        })
+    Promise.all(params.map(async param => {
+      const response = await fetch(url + param);
+      const data = await response.json();
+      Promise.all(data.map(async (ingredient) => {
+        const response_1 = await fetch(url + param + '/' + ingredient);
+        const obj = await response_1.json();
+        return tempInventory[ingredient] = obj;
+      }));
     }))
       .then(this.setState({ inventory: tempInventory }));
   }
