@@ -1,0 +1,17 @@
+{
+  "name": "lab4_server",
+  "version": "1.0.0",
+  "description": "salad bar REST server",
+  "main": "index.js",
+  "scripts": {
+    "start": "react-scripts start",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Per Andersson",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.17.1",
+    "http-status-codes": "^1.3.0"
+  }
+}
