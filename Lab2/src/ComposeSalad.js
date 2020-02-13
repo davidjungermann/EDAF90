@@ -47,11 +47,11 @@ class ComposeSalad extends React.Component {
 
     handleExtra(event) {
         let extras = [...this.state.extra]
-
+        
         if (event.target.checked) {
             extras.push(event.target.value)
         } else {
-            proteins = proteins.filter(name => (name !== event.target.value));
+            extras = extras.filter(name => (name !== event.target.value));
         }
         this.setState({ extra: extras })
     }
