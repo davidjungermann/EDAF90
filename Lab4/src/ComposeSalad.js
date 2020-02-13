@@ -85,7 +85,7 @@ class ComposeSalad extends React.Component {
     handleSubmit(event) {
         if (event.target.checkValidity() === true) {
             this.props.saladSubmit(this.createSalad());
-            //this.props.history.push('/order-view');
+            this.props.history.push('/order-view');
         }
         event.target.classList.add("was-validated");
         event.preventDefault();
