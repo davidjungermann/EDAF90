@@ -45,7 +45,7 @@ export default class Salad {
             console.warn("Provided ingredient type does not exist.")
         }
     }
-    // Task 7
+    // MÅSTE ÄNDRA DENNA PGA PRIS-BUGG!
     price() {
         let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
