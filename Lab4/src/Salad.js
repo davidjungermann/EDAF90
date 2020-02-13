@@ -1,18 +1,18 @@
-import inventory from './inventory.ES6';
 import nextId from "react-id-generator";
 
 export default class Salad {
-    constructor() {
+    constructor(temp) {
+        this.inventory = temp;
+        
         this.foundation = '';
         this.protein = [];
         this.extra = [];
         this.dressing = '';
-
         Object.defineProperty(this, "id",  {value: nextId(), writable: false});
     }
 
     add(name, ingredient) {
-
+        let inventory = this.inventory;
         let ingrObj = {
             name: name,
             ...inventory[name]

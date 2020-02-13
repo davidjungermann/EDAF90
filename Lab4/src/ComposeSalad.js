@@ -65,7 +65,7 @@ class ComposeSalad extends React.Component {
 
     createSalad() {
         let inventory = this.getInventory();
-        let salad = new Salad();
+        let salad = new Salad(inventory);
         salad.add(this.state.foundation, inventory[this.state.foundation]);
         this.state.protein.forEach(e => salad.add(e, inventory[e]));
         this.state.extra.forEach(e => salad.add(e, inventory[e]));
