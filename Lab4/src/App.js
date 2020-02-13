@@ -61,17 +61,6 @@ class App extends React.Component {
     return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} />;
   }
 
-  renderIngredient() {
-    let { ingredient } = useParams();
-
-    return (
-      <div>
-        <h3>Ingredient: {ingredient}</h3>
-        <h4>Egenskaper: {JSON.stringify(this.state.inventory[ingredient], null, 2)}</h4>
-      </div>
-    );
-  }
-
   render() {
     const compose = this.composeSaladElem();
     const orders = this.composeOrderElem();
@@ -97,7 +86,7 @@ class App extends React.Component {
           <Route path="/order-view" render={orders}></Route>
         </div>
         <div>
-          <Route path="/ingredient-view/:ingredient" children={<this.renderIngredient />}></Route>
+          <Route path="/ingredient-view/:ingredient" ></Route>
         </div>
       </Router>
     );

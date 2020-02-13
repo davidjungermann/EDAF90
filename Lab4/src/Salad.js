@@ -3,12 +3,12 @@ import nextId from "react-id-generator";
 export default class Salad {
     constructor(temp) {
         this.inventory = temp;
-        
+
         this.foundation = '';
         this.protein = [];
         this.extra = [];
         this.dressing = '';
-        Object.defineProperty(this, "id",  {value: nextId(), writable: false});
+        Object.defineProperty(this, "id", { value: nextId(), writable: false });
     }
 
     add(name, ingredient) {
@@ -45,7 +45,7 @@ export default class Salad {
             console.warn("Provided ingredient type does not exist.")
         }
     }
-    // MÅSTE ÄNDRA DENNA PGA PRIS-BUGG!
+
     price() {
         let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
         return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);

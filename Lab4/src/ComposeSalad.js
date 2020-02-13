@@ -138,7 +138,7 @@ class ComposeSalad extends React.Component {
                                 checked={this.state.protein.includes(ingredient)}
                                 onChange={this.handleProtein}
                             />
-                            <Link to={"/ingredient-view/" + ingredient}  >{" " + ingredient + " +" + inventory[ingredient].price + " kr"}</Link>
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}
                         </div>
                     ))}
                     <p></p>
@@ -153,7 +153,7 @@ class ComposeSalad extends React.Component {
                                 checked={this.state.extra.includes(ingredient)}
                                 onChange={this.handleExtra}
                             />
-                            <Link to={"/ingredient-view/" + ingredient}  >{" " + ingredient + " +" + inventory[ingredient].price + " kr"}</Link>
+                            {" " + ingredient + " +" + inventory[ingredient].price + " kr"}
                         </div>
                     ))}
                     <p></p>
