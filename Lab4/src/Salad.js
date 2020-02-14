@@ -1,8 +1,8 @@
 import nextId from "react-id-generator";
 
 export default class Salad {
-    constructor(temp) {
-        this.inventory = temp;
+    constructor(inventory) {
+        this.inventory = inventory;
 
         this.foundation = '';
         this.protein = [];
@@ -12,10 +12,9 @@ export default class Salad {
     }
 
     add(name, ingredient) {
-        let inventory = this.inventory;
         let ingrObj = {
             name: name,
-            ...inventory[name]
+            ...this.inventory[name]
         }
 
         if (ingredient.hasOwnProperty('foundation')) {

@@ -21,7 +21,6 @@ class ComposeSalad extends React.Component {
         this.handleExtra = this.handleExtra.bind(this);
         this.handleDressing = this.handleDressing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
-
     }
 
     getInventory() {

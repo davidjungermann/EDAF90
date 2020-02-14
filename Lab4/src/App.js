@@ -22,26 +22,39 @@ class App extends React.Component {
     let params = ['foundations', 'proteins', 'extras', 'dressings'];
     let tempInventory = {};
 
-    Promise.all(params.map(async param => {
-      const response = await fetch(url + param);
-      const data = await response.json();
-      Promise.all(data.map(async (ingredient) => {
-        const response_1 = await fetch(url + param + '/' + ingredient);
-        const obj = await response_1.json();
-        return tempInventory[ingredient] = obj;
+    Promise.all(params.map(async param => { // Tar en array med alla query params
+      const response = await fetch(url + param); // Inväntar response för alla params. 
+      const data = await response.json(); // Inväntar alla svar och gör till JSON. 
+      Promise.all(data.map(async (ingredient) => { // Tar en ny array med alla svar
+        const response_1 = await fetch(url + param + '/' + ingredient); // Gör samma sak som ovan fast tar alla ingredienser för en given param, t.ex. alla ingr i foundation. 
+        const obj = await response_1.json(); // Inväntar svar
+        return tempInventory[ingredient] = obj; // Lägger till i ett tempobjekt med ingrediensnamn som nyckel
       }));
     }))
-      .then(this.setState({ inventory: tempInventory }));
+      .then(this.setState({ inventory: tempInventory })); // När alla ingredienser för alla parametrar är hämtade sätter vi inventory i state till tempInventory. 
   }
 
   componentDidMount() {
     this.fetchInventory();
   }
 
+
+  async order(salad) {
+    let url = 'http://localhost:8080/orders/'
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {'Accept': 'application/json'},
+      body: JSON.stringify(salad),
+    });
+    return await response.json();
+  }
+
   saladSubmit(salad) {
     let tempSalads = [...this.state.order];
     tempSalads.push(salad)
     this.setState({ order: tempSalads })
+    this.order(salad)
+      .then(data => alert(JSON.stringify(data)));
   }
 
   saladRemove(salad) {
@@ -52,7 +65,7 @@ class App extends React.Component {
 
   composeSaladElem() {
     return (params) => <ComposeSalad {...params} inventory={this.state.inventory}
-      saladSubmit={this.saladSubmit} />;
+      saladSubmit={this.saladSubmit} test={this.fetchInventory} />;
   }
 
   composeOrderElem() {
