@@ -5,7 +5,9 @@ import ComposeSalad from "./ComposeSalad";
 import OrderView from "./OrderView";
 import { BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
 
-
+/* TODO: 1. Refresh-buggen
+         2. Kolla att serversvaret är okej */
+         
 class App extends React.Component {
   constructor(props) {
     super(props);
