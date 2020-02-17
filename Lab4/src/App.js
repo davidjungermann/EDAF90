@@ -1,12 +1,11 @@
 import React from 'react';
 import './App.css';
-//import inventory from './inventory.ES6';
+import Salad from "./Salad"
 import ComposeSalad from "./ComposeSalad";
 import OrderView from "./OrderView";
 import { BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
 
-/* TODO: 1. Refresh-buggen
-         2. Kolla att serversvaret är okej */
+/* TODO: 1. Refresh-buggen */
 
 class App extends React.Component {
   constructor(props) {
@@ -37,9 +36,13 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    let order = JSON.parse(window.localStorage.getItem('order'));
+    if (Object.entries(order).length === 0) {
+      order.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
+      this.setState({ order: order });
+    }
     this.fetchInventory();
   }
-
 
   async orderSalad(salad) {
     let url = 'http://localhost:8080/orders/'
@@ -48,6 +51,7 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
     });
+    console.log("LocalStorage:" + window.localStorage.getItem('order'));
     return await response.json();
   }
 
@@ -55,8 +59,11 @@ class App extends React.Component {
     let tempSalads = [...this.state.order];
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
-    // Since I have entire salad object with all properties, make new object with names only. 
-    let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name};
+
+    // Since I have entire salad object with all properties, make new object with names only.
+    // This is due to not wanting to bloat all prints.  
+    let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
+    window.localStorage.setItem('order', JSON.stringify(newSalad));
     this.orderSalad(newSalad)
       .then(data => alert(JSON.stringify(data)));
   }
@@ -68,8 +75,7 @@ class App extends React.Component {
   }
 
   composeSaladElem() {
-    return (params) => <ComposeSalad {...params} inventory={this.state.inventory}
-      saladSubmit={this.saladSubmit} />;
+    return (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
   }
 
   composeOrderElem() {
