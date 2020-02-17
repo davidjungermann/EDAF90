@@ -36,6 +36,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
+    window.localStorage.clear();
     let order = JSON.parse(window.localStorage.getItem('order'));
     if (order != null) {
       Object.setPrototypeOf(order, Salad.prototype);
@@ -53,6 +54,11 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
     });
+    let order = JSON.parse(window.localStorage.getItem('order'));
+    if (order != null) {
+      Object.setPrototypeOf(order, Salad.prototype);
+      console.log(order.price());
+    }
     return await response.json();
   }
 
@@ -61,7 +67,7 @@ class App extends React.Component {
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
     let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
-    window.localStorage.setItem('order', JSON.stringify(newSalad));
+    window.localStorage.setItem('order', JSON.stringify(salad));
     this.orderSalad(newSalad)
       .then(data => alert(JSON.stringify(data)));
   }
