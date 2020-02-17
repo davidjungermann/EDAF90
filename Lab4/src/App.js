@@ -37,9 +37,11 @@ class App extends React.Component {
 
   componentDidMount() {
     let order = JSON.parse(window.localStorage.getItem('order'));
-    if (Object.entries(order).length === 0) {
-      order.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
-      this.setState({ order: order });
+    if (order != null) {
+      Object.setPrototypeOf(order, Salad.prototype);
+      let tempOrder = [];
+      tempOrder.push(order);
+      this.setState({ order: tempOrder });
     }
     this.fetchInventory();
   }
@@ -51,7 +53,6 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
     });
-    console.log("LocalStorage:" + window.localStorage.getItem('order'));
     return await response.json();
   }
 
@@ -59,9 +60,6 @@ class App extends React.Component {
     let tempSalads = [...this.state.order];
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
-
-    // Since I have entire salad object with all properties, make new object with names only.
-    // This is due to not wanting to bloat all prints.  
     let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
     window.localStorage.setItem('order', JSON.stringify(newSalad));
     this.orderSalad(newSalad)
