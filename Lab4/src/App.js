@@ -36,7 +36,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let tempOrder = this.state.order;
+    let tempOrder = [...this.state.order ];
     let order = JSON.parse(window.localStorage.getItem('order'));
     if (order != null) {
       Object.setPrototypeOf(order, Salad.prototype);
@@ -58,6 +58,8 @@ class App extends React.Component {
       Object.setPrototypeOf(order, Salad.prototype);
       console.log(order.price());
     }
+    this.setState({ list: [] });
+    window.localStorage.clear();
     return await response.json();
   }
 
