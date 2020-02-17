@@ -36,12 +36,12 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let tempOrder = [...this.state.order ];
+    let tempOrder = [...this.state.order];
     let order = JSON.parse(window.localStorage.getItem('order'));
     if (order != null) {
       Object.setPrototypeOf(order, Salad.prototype);
       tempOrder.push(order);
-      this.setState({ order: tempOrder });
+      this.setState({order: this.state.order.concat(tempOrder)});
     }
     this.fetchInventory();
   }
@@ -53,13 +53,6 @@ class App extends React.Component {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
     });
-    let order = JSON.parse(window.localStorage.getItem('order'));
-    if (order != null) {
-      Object.setPrototypeOf(order, Salad.prototype);
-      console.log(order.price());
-    }
-    this.setState({ list: [] });
-    window.localStorage.clear();
     return await response.json();
   }
 
