@@ -7,7 +7,7 @@ import { BrowserRouter as Router, Route, Link, useParams } from "react-router-do
 
 /* TODO: 1. Refresh-buggen
          2. Kolla att serversvaret är okej */
-         
+
 class App extends React.Component {
   constructor(props) {
     super(props);
@@ -41,11 +41,11 @@ class App extends React.Component {
   }
 
 
-  async order(salad) {
+  async orderSalad(salad) {
     let url = 'http://localhost:8080/orders/'
     const response = await fetch(url, {
       method: "POST",
-      headers: {'Accept': 'application/json'},
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
     });
     return await response.json();
@@ -53,10 +53,11 @@ class App extends React.Component {
 
   saladSubmit(salad) {
     let tempSalads = [...this.state.order];
-    tempSalads.push(salad)
-    this.setState({ order: tempSalads })
-    this.order(salad)
-      .then(data => alert(JSON.stringify(data)));
+    tempSalads.push(salad);
+    this.setState({ order: tempSalads });
+    let newSalad = { "foundation": salad.foundation, "protein": salad.protein, "extra": salad.extra, "dressing": salad.dressing};
+    this.orderSalad(newSalad)
+      .then(data => console.log(JSON.stringify(data)));
   }
 
   saladRemove(salad) {
@@ -67,7 +68,7 @@ class App extends React.Component {
 
   composeSaladElem() {
     return (params) => <ComposeSalad {...params} inventory={this.state.inventory}
-      saladSubmit={this.saladSubmit} test={this.fetchInventory} />;
+      saladSubmit={this.saladSubmit} />;
   }
 
   composeOrderElem() {
