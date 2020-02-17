@@ -36,11 +36,10 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    window.localStorage.clear();
+    let tempOrder = this.state.order;
     let order = JSON.parse(window.localStorage.getItem('order'));
     if (order != null) {
       Object.setPrototypeOf(order, Salad.prototype);
-      let tempOrder = [];
       tempOrder.push(order);
       this.setState({ order: tempOrder });
     }
