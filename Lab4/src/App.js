@@ -55,9 +55,10 @@ class App extends React.Component {
     let tempSalads = [...this.state.order];
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
-    let newSalad = { "foundation": salad.foundation, "protein": salad.protein, "extra": salad.extra, "dressing": salad.dressing};
+    // Since I have entire salad object with all properties, make new object with names only. 
+    let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name};
     this.orderSalad(newSalad)
-      .then(data => console.log(JSON.stringify(data)));
+      .then(data => alert(JSON.stringify(data)));
   }
 
   saladRemove(salad) {
