@@ -17,7 +17,7 @@ class App extends Component {
   }
 
   postSalad() {
-    fetch("http://localhost:8080/salads/", {
+    fetch("http://localhost:8080/orders/", {
       crossDomain: true,
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
@@ -85,7 +85,7 @@ class App extends Component {
 
   render() {
     const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} handleSaladSubmit={this.handleSaladSubmit} />;
-    const order = (params) => <OrderView {...params} inputSalad={this.state.order} handleSaladRemove={this.handleSaladRemove} submitOrder={this.postSalad} />;
+    const order = (params) => <OrderView {...params} inputSalad={this.state.order} handleSaladRemove={this.handleSaladRemove} postSalad={this.postSalad} />;
 
     return (
       <Router>
