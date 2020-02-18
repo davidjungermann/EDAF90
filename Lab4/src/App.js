@@ -11,8 +11,8 @@ class App extends Component {
   constructor(props) {
     super(props);
     this.state = { order: [], inventory: {} };
-    this.handleSaladSubmit = this.handleSaladSubmit.bind(this);
-    this.handleSaladRemove = this.handleSaladRemove.bind(this);
+    this.saladSubmit = this.saladSubmit.bind(this);
+    this.saladRemove = this.saladRemove.bind(this);
     this.postSalad = this.postSalad.bind(this);
   }
 
@@ -68,14 +68,14 @@ class App extends Component {
     this.fetchInventory();
   }
 
-  handleSaladSubmit(s) {
+  saladSubmit(s) {
     let temp = [...this.state.order]
     temp.push(s);
     this.setState({ order: temp })
     window.localStorage.setItem('salads', JSON.stringify(temp));
   }
 
-  handleSaladRemove(s) {
+  saladRemove(s) {
     let temp = [...this.state.order];
     let index = temp.indexOf(s);
     temp.splice(index, 1);
@@ -84,8 +84,8 @@ class App extends Component {
   }
 
   render() {
-    const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} handleSaladSubmit={this.handleSaladSubmit} />;
-    const order = (params) => <OrderView {...params} inputSalad={this.state.order} handleSaladRemove={this.handleSaladRemove} postSalad={this.postSalad} />;
+    const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
+    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.handleSaladRemove} postSalad={this.postSalad} />;
 
     return (
       <Router>

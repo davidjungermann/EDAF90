@@ -16,7 +16,7 @@ class OrderView extends Component {
                   width: 500
                 }}>{salad.print()}
                 </span>
-                <button type='button' className='btn btn-danger' onClick={() => this.props.handleSaladRemove(salad)}>Ta bort sallad</button>
+                <button type='button' className='btn btn-danger' onClick={() => this.props.saladRemove(salad)}>Ta bort sallad</button>
               </li>)}
           </ol>
         </div>
