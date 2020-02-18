@@ -1,88 +1,88 @@
-import React from 'react';
-import './App.css';
-import Salad from "./Salad"
-import ComposeSalad from "./ComposeSalad";
+import React, { Component } from 'react';
+import 'bootstrap/dist/css/bootstrap.css';
+import "bootstrap/dist/js/bootstrap.js";
+import 'mdbreact/dist/css/mdb.css'
+
 import OrderView from "./OrderView";
-import { BrowserRouter as Router, Route, Link, useParams } from "react-router-dom";
+import ComposeSalad from './ComposeSalad';
+import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import Salad from './Salad';
 
-/* TODO: 1. Refresh-buggen */
-
-class App extends React.Component {
+class App extends Component {
   constructor(props) {
     super(props);
-    this.saladSubmit = this.saladSubmit.bind(this);
-    this.saladRemove = this.saladRemove.bind(this);
-    this.state = {
-      order: [],
-      inventory: {}
-    };
+    this.state = { list: [], inventory: {} };
+    this.handleSaladSubmit = this.handleSaladSubmit.bind(this);
+    this.handleSaladRemove = this.handleSaladRemove.bind(this);
+    this.sendToServer = this.sendToServer.bind(this);
   }
 
-  fetchInventory() {
-    let url = 'http://localhost:8080/';
-    let params = ['foundations', 'proteins', 'extras', 'dressings'];
-    let tempInventory = {};
+  sendToServer() {
+    fetch("http://localhost:8080/orders/", {
+      crossDomain: true,
+      method: "POST",
+      headers: { 'Accept': 'application/json' },
+      body: JSON.stringify(this.state.list)
+    })
+      .then(response => response.json())
+      .then(list => console.log(list))
 
-    Promise.all(params.map(async param => { // Tar en array med alla query params
-      const response = await fetch(url + param); // Inväntar response för alla params. 
-      const data = await response.json(); // Inväntar alla svar och gör till JSON. 
-      Promise.all(data.map(async (ingredient) => { // Tar en ny array med alla svar
-        const response_1 = await fetch(url + param + '/' + ingredient); // Gör samma sak som ovan fast tar alla ingredienser för en given param, t.ex. alla ingr i foundation. 
-        const obj = await response_1.json(); // Inväntar svar
-        return tempInventory[ingredient] = obj; // Lägger till i ett tempobjekt med ingrediensnamn som nyckel
-      }));
-    }))
-      .then(this.setState({ inventory: tempInventory })); // När alla ingredienser för alla parametrar är hämtade sätter vi inventory i state till tempInventory. 
+    this.setState({ list: [] });
+    window.localStorage.clear();
   }
 
   componentDidMount() {
-    let tempOrder = [...this.state.order];
-    let order = JSON.parse(window.localStorage.getItem('order'));
-    if (order != null) {
-      Object.setPrototypeOf(order, Salad.prototype);
-      tempOrder.push(order);
-      this.setState({order: this.state.order.concat(tempOrder)});
+    let list = JSON.parse(window.localStorage.getItem('orders'));
+    if (list != null) {
+      list.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
+      this.setState({ list: list });
     }
-    this.fetchInventory();
+    let tempInventory = {};
+    let params = ["foundations", "proteins", "extras", "dressings"];
+    let url = 'http://localhost:8080/';
+    
+    Promise.all(
+      params.map(async param => {
+        const response = await fetch(url + param, {
+          method: "GET",
+          mode: "cors",
+          cache: "default"
+        });
+
+        const response_1 = await response.json();
+        Promise.all(response_1.map(async ingredient => {
+          const response_2 = await fetch((url + param + '/' + ingredient), {
+            method: "GET",
+            mode: "cors",
+            cache: "default"
+          });
+          const response_3 = await response_2.json();
+          tempInventory = { ...tempInventory, [ingredient]: response_3 };
+        })).then(() => {
+          this.setState({ inventory: tempInventory });
+        });
+      })
+    );
   }
 
-  async orderSalad(salad) {
-    let url = 'http://localhost:8080/orders/'
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(salad),
-    });
-    return await response.json();
+  handleSaladSubmit(s) {
+    let temp = [...this.state.list]
+    temp.push(s);
+    this.setState({ list: temp })
+    window.localStorage.setItem('orders', JSON.stringify(temp));
   }
 
-  saladSubmit(salad) {
-    let tempSalads = [...this.state.order];
-    tempSalads.push(salad);
-    this.setState({ order: tempSalads });
-    let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
-    window.localStorage.setItem('order', JSON.stringify(salad));
-    this.orderSalad(newSalad)
-      .then(data => alert(JSON.stringify(data)));
-  }
-
-  saladRemove(salad) {
-    let tempSalads = [...this.state.order];
-    tempSalads.splice(tempSalads.indexOf(salad), 1);
-    this.setState({ order: tempSalads })
-  }
-
-  composeSaladElem() {
-    return (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
-  }
-
-  composeOrderElem() {
-    return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} />;
+  handleSaladRemove(s) {
+    let temp = [...this.state.list];
+    let index = temp.indexOf(s);
+    temp.splice(index, 1);
+    this.setState({ list: temp });
+    window.localStorage.setItem('orders', JSON.stringify(temp));
   }
 
   render() {
-    const compose = this.composeSaladElem();
-    const orders = this.composeOrderElem();
+    const composeSaladElem = (params) => <ComposeSalad {...params} inventory={this.state.inventory} handleSaladSubmit={this.handleSaladSubmit} />;
+    const viewOrderElem = (params) => <OrderView {...params} inputSalad={this.state.list} handleSaladRemove={this.handleSaladRemove} submitOrder={this.sendToServer} />;
 
     return (
       <Router>
@@ -99,10 +99,10 @@ class App extends React.Component {
           </ul>
         </div>
         <div className="container w-25">
-          <Route path="/compose-salad" render={compose}></Route>
+          <Route path="/compose-salad" render={composeSaladElem}></Route>
         </div>
         <div>
-          <Route path="/order-view" render={orders}></Route>
+          <Route path="/order-view" render={viewOrderElem}></Route>
         </div>
         <div>
           <Route path="/ingredient-view/:ingredient" ></Route>
@@ -111,4 +111,5 @@ class App extends React.Component {
     );
   }
 }
+
 export default App;

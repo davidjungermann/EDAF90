@@ -1,21 +1,12 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'bootstrap/dist/css/bootstrap.css';
-import "bootstrap/dist/js/bootstrap.js";
-import 'mdbreact/dist/css/mdb.css'
-import React from "react";
+import React, { Component } from 'react';
 import Salad from "./Salad";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import 'bootstrap/dist/css/bootstrap.css';
 
-class ComposeSalad extends React.Component {
+class ComposeSalad extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            foundation: '',
-            protein: [],
-            extra: [],
-            dressing: ''
-        };
+        this.state = { foundation: '', protein: [], extra: [], dressing: '', salad: new Salad() };
+
         this.handleFoundation = this.handleFoundation.bind(this);
         this.handleProtein = this.handleProtein.bind(this);
         this.handleExtra = this.handleExtra.bind(this);
@@ -23,92 +14,69 @@ class ComposeSalad extends React.Component {
         this.handleSubmit = this.handleSubmit.bind(this);
     }
 
-    getInventory() {
-        const inventory = this.props.inventory;
-
-        if (!inventory) {
-            alert("inventory is undefined in ComposeSalad");
-        }
-        return inventory;
-    }
-
     handleFoundation(event) {
         this.setState({ foundation: event.target.value });
     }
 
     handleProtein(event) {
-        let proteins = [...this.state.protein]
-
-        if (event.target.checked) {
-            proteins.push(event.target.value)
+        let newList = [...this.state.protein]
+        if (!event.target.checked) {
+            newList = newList.filter(name => (name !== event.target.value));
         } else {
-            proteins = proteins.filter(name => (name !== event.target.value));
+            newList.push(event.target.value);
         }
-        this.setState({ protein: proteins })
+        this.setState({ protein: newList });
     }
 
     handleExtra(event) {
-        let extras = [...this.state.extra]
-
-        if (event.target.checked) {
-            extras.push(event.target.value)
+        let newList = [...this.state.extra]
+        if (!event.target.checked) {
+            newList = newList.filter(name => (name !== event.target.value));
         } else {
-            extras = extras.filter(name => (name !== event.target.value));
+            newList.push(event.target.value);
         }
-        this.setState({ extra: extras })
+        this.setState({ extra: newList });
     }
 
     handleDressing(event) {
         this.setState({ dressing: event.target.value });
     }
 
-    createSalad() {
-        let inventory = this.getInventory();
-        let salad = new Salad(inventory);
-        salad.add(this.state.foundation, inventory[this.state.foundation]);
-        this.state.protein.forEach(e => salad.add(e, inventory[e]));
-        this.state.extra.forEach(e => salad.add(e, inventory[e]));
-        salad.add(this.state.dressing, inventory[this.state.dressing]);
-        return salad;
-    }
-
-    clearState() {
-        this.setState({
-            foundation: '',
-            protein: [],
-            extra: [],
-            dressing: ''
-        })
-    }
-
     handleSubmit(event) {
         if (event.target.checkValidity() === true) {
-            this.props.saladSubmit(this.createSalad());
+            this.buildSalad();
             this.props.history.push('/order-view');
         }
         event.target.classList.add("was-validated");
         event.preventDefault();
     }
 
+    buildSalad() {
+        this.state.salad.addFoundation(this.state.foundation);
+        this.state.protein.map(p => this.state.salad.addProtein(p));
+        this.state.extra.map(e => this.state.salad.addExtra(e));
+        this.state.salad.addDressing(this.state.dressing);
+
+        this.props.handleSaladSubmit(this.state.salad);
+
+        this.setState({
+            foundation: '',
+            protein: [],
+            extra: [],
+            dressing: '',
+            salad: new Salad()
+        });
+    }
+
     render() {
-
-        const inventory = this.getInventory();
-
-        let foundations = Object.keys(inventory).filter(
-            name => inventory[name].foundation
-        );
-
-        let proteins = Object.keys(inventory).filter(
-            name => inventory[name].protein
-        );
-
-        let extras = Object.keys(inventory).filter(
-            name => inventory[name].extra
-        );
-
-        let dressings = Object.keys(inventory).filter(
-            name => inventory[name].dressing
-        );
+        const inventory = this.props.inventory;
+        if (!inventory) {
+            alert("inventory is undefined in ComposeSalad");
+        }
+        let foundations = Object.keys(inventory).filter(name => inventory[name].foundation);
+        let proteins = Object.keys(inventory).filter(name => inventory[name].protein);
+        let extras = Object.keys(inventory).filter(name => inventory[name].extra);
+        let dressings = Object.keys(inventory).filter(name => inventory[name].dressing);
 
         return (
             <div onSubmit={this.handleSubmit}>
@@ -178,6 +146,7 @@ class ComposeSalad extends React.Component {
                 </form>
             </div>
         );
+
     }
 }
 

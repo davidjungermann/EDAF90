@@ -1,34 +1,24 @@
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import 'bootstrap-css-only/css/bootstrap.min.css';
-import 'mdbreact/dist/css/mdb.css';
-import React from "react";
+import React, { Component } from 'react';
 
-class OrderView extends React.Component {
+class OrderView extends Component {
 
-    render() {
-        return (
-            <ul className="container w-50">
-                {this.props.orderList.map(salad =>
-                    <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
-                        marginTop: 10
-                    }}>
-                        <br></br>
-                        <span style={{
-                            display: "block",
-                            width: 500
-                        }}>{salad.print(salad)}
-                        </span>
-                        <button type='button' className="btn btn-danger float-right row justify-content-center align-self-center" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
-                        <span className="badge badge-primary badge-pill row justify-content-center align-self-center" style={{
-                            position: "absolute",
-                            right: "40px",
-                            top: "50"
-                        }}>{salad.price() + " kr"}</span>
-                    </li>)
-                }
-            </ul>
-        );
-    }
+  render() {
+    return (
+      <div className="container">
+        <div className="list-group">
+          <ol id="orders">
+            {this.props.inputSalad.map(salad =>
+              <li key={this.props.inputSalad.indexOf(salad)} className='list-group-item clearfix' >{salad.print()}
+                <button type='button' className='btn btn-danger' onClick={() => this.props.handleSaladRemove(salad)}>Ta bort sallad</button>
+              </li>)}
+          </ol>
+        </div>
+        <div>
+          <button type='button' className='btn btn-success' onClick={() => this.props.submitOrder()}>Beställ sallader</button>
+        </div>
+      </div>
+    )
+  }
 }
 
 export default OrderView;

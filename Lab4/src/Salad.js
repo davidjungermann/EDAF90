@@ -1,61 +1,66 @@
-import nextId from "react-id-generator";
-
-export default class Salad {
-    constructor(inventory) {
-        this.inventory = inventory;
-
-        this.foundation = '';
-        this.protein = [];
-        this.extra = [];
-        this.dressing = '';
-        Object.defineProperty(this, "id", { value: nextId(), writable: false });
-    }
-
-    add(name, ingredient) {
-        let ingrObj = {
-            name: name,
-            ...this.inventory[name]
-        }
-
-        if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation = ingrObj
-        } else if (ingredient.hasOwnProperty('protein')) {
-            this.protein.push(ingrObj);
-        } else if (ingredient.hasOwnProperty('extra')) {
-            this.extra.push(ingrObj);
-        } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing = ingrObj;
-        } else {
-            console.warn("Provided ingredient type does not exist.")
+class Salad {
+    constructor() {
+        this.ingredients = {
+            foundation: [],
+            protein: [],
+            extra: [],
+            dressing: []
         }
     }
+
+    addFoundation(ingredient) {
+        this.ingredients.foundation.push(ingredient);
+    }
+    addProtein(ingredient) {
+        this.ingredients.protein.push(ingredient);
+    }
+    addExtra(ingredient) {
+        this.ingredients.extra.push(ingredient);
+    }
+    addDressing(ingredient) {
+        this.ingredients.dressing.push(ingredient);
+    }
+
 
     remove(ingredient) {
-
-        if (ingredient.hasOwnProperty('foundation')) {
-            this.foundation = '';
-        } else if (ingredient.hasOwnProperty('protein')) {
-            this.protein.splice(this.protein.indexOf(ingredient, 1));
-        } else if (ingredient.hasOwnProperty('extra')) {
-            this.extra.splice(this.extra.indexOf(ingredient, 1));
-        } else if (ingredient.hasOwnProperty('dressing')) {
-            this.dressing = '';
-        } else {
-            console.warn("Provided ingredient type does not exist.")
+        if (ingredient.foundation) {
+            this.ingredients.foundation = [];
+        }
+        if (ingredient.protein) {
+            this.ingredients.protein = [];
+        }
+        if (ingredient.extra) {
+            this.ingredients.extra = [];
+        }
+        if (ingredient.dressing) {
+            this.ingredients.dressing = [];
         }
     }
 
     price() {
-        let salad = [].concat(this.foundation, this.protein, this.extra, this.dressing);
-        return salad.reduce((sum, ingredient) => sum += ingredient.price, 0);
+        let allIngredientPrices = Object.values(this.ingredients).reduce((acc, curr) => {
+            return acc.concat(curr);
+        }, []);
+        let totalPrice = allIngredientPrices.reduce((acc, curr) => {
+            return acc + curr.price;
+        }, 0);
+        console.log("Total price: " + totalPrice);
     }
-
-    print(salad) {
-        let proteinString = " Protein: ";
-        let extraString = " Extra: ";
-        salad.protein.forEach(e => proteinString += e.name + ", ");
-        salad.extra.forEach(e => extraString += e.name + ", ");
-        return "Bas: " + salad.foundation.name + proteinString.substring(0, proteinString.length - 2) + extraString.substring(0, proteinString.length - 2) + " Dressing: " + salad.dressing.name;
+    
+    print() {
+        return (
+            " Foundation: " +
+            this.ingredients.foundation +
+            ", Proteins: " +
+            this.ingredients.protein +
+            ", Extras: " +
+            this.ingredients.extra +
+            ", Dressing: " +
+            this.ingredients.dressing
+            + " "
+        );
     }
 
 }
+
+export default Salad;
