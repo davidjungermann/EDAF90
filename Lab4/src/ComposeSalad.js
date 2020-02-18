@@ -44,21 +44,23 @@ class ComposeSalad extends Component {
 
     handleSubmit(event) {
         if (event.target.checkValidity() === true) {
-            this.buildSalad();
+            this.createSalad();
             this.props.history.push('/order-view');
         }
         event.target.classList.add("was-validated");
         event.preventDefault();
     }
 
-    buildSalad() {
+    createSalad() {
         this.state.salad.addFoundation(this.state.foundation);
         this.state.protein.map(p => this.state.salad.addProtein(p));
         this.state.extra.map(e => this.state.salad.addExtra(e));
         this.state.salad.addDressing(this.state.dressing);
-
         this.props.saladSubmit(this.state.salad);
+        this.clearState();
+    }
 
+    clearState() {
         this.setState({
             foundation: '',
             protein: [],

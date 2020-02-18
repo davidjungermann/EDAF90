@@ -85,7 +85,7 @@ class App extends Component {
 
   render() {
     const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
-    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.handleSaladRemove} postSalad={this.postSalad} />;
+    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.saladRemove} postSalad={this.postSalad} />;
 
     return (
       <Router>

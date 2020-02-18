@@ -1,19 +1,10 @@
 import React from "react";
 import ComposeSalad from "./ComposeSalad";
-import Salad from "./Salad";
 
 class ComposeSaladModal extends React.Component {
   render() {
     return (
       <div>
-        <button
-          type="button"
-          className="btn btn-primary"
-          data-toggle="modal"
-          data-target="#ComposeSaladModal"
-        >
-          Komponera din egen sallad
-        </button>
         <div
           className="modal fade"
           id="ComposeSaladModal"
@@ -38,7 +29,17 @@ class ComposeSaladModal extends React.Component {
                 </button>
               </div>
               <div className="modal-body">
-                <ComposeSalad inventory={this.props.inventory} handleSaladSubmit={this.props.handleSaladSubmit}/>
+              <ComposeSalad inventory={this.props.inventory} saladSubmit={this.props.saladSubmit}/>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-danger"
+                  data-dismiss="modal"
+                  
+                >
+                  Stäng fönstret
+                </button>
               </div>
             </div>
           </div>
