@@ -7,6 +7,7 @@ class OrderView extends React.Component {
 
     render() {
         return (
+            <div>
             <ul className="container w-50">
                 {this.props.orderList.map(salad =>
                     <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
@@ -27,6 +28,8 @@ class OrderView extends React.Component {
                     </li>)
                 }
             </ul>
+            <button type='button' className='btn btn-success' onClick={() => this.props.orderSalad()}>Skicka beställning</button>
+            </div>
         );
     }
 }

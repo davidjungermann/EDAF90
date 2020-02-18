@@ -45,8 +45,9 @@ class App extends React.Component {
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(salad),
-    });
-    return await response.json();
+    })
+      .then(response => response.json())
+      .then(order => alert(order))
   }
 
   saladSubmit(salad) {
@@ -54,8 +55,6 @@ class App extends React.Component {
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
     let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
-    this.orderSalad(newSalad)
-      .then(data => alert(JSON.stringify(data)));
   }
 
   saladRemove(salad) {
@@ -69,7 +68,7 @@ class App extends React.Component {
   }
 
   composeOrderElem() {
-    return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} />;
+    return (params) => <OrderView {...params} orderList={this.state.order} saladRemove={this.saladRemove} orderSalad={this.orderSalad} />;
   }
 
   render() {
