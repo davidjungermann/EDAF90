@@ -21,11 +21,11 @@ class App extends Component {
     fetch("http://localhost:8080/orders/", {
       crossDomain: true,
       method: "POST",
-      headers: { 'Accept': 'application/json' },
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(this.state.list)
     })
       .then(response => response.json())
-      .then(list => console.log(list))
+      .then(data => console.log(JSON.stringify(data)));
 
     this.setState({ list: [] });
     window.localStorage.clear();

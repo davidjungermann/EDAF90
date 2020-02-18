@@ -4,18 +4,23 @@ class OrderView extends Component {
 
   render() {
     return (
-      <div className="container">
+      <div className="container w-50">
         <div className="list-group">
           <ol id="orders">
             {this.props.inputSalad.map(salad =>
-              <li key={this.props.inputSalad.indexOf(salad)} className='list-group-item clearfix' >{salad.print()}
+              <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
+                marginTop: 10
+              }}>
+                <span style={{
+                  display: "block",
+                  width: 500
+                }}>{salad.print()}
+                </span>
                 <button type='button' className='btn btn-danger' onClick={() => this.props.handleSaladRemove(salad)}>Ta bort sallad</button>
               </li>)}
           </ol>
         </div>
-        <div>
-          <button type='button' className='btn btn-success' onClick={() => this.props.submitOrder()}>Beställ sallader</button>
-        </div>
+        <button type='button' className="btn btn-success float-right row justify-content-center align-self-center" onClick={() => this.props.submitOrder()}>Beställ sallader</button>
       </div>
     )
   }

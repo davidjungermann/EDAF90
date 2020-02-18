@@ -1,4 +1,6 @@
-class Salad {
+import nextId from "react-id-generator";
+import inventory from "./inventory.ES6"
+export default class Salad {
     constructor() {
         this.ingredients = {
             foundation: [],
@@ -6,6 +8,7 @@ class Salad {
             extra: [],
             dressing: []
         }
+        Object.defineProperty(this, "id", { value: nextId(), writable: false });
     }
 
     addFoundation(ingredient) {
@@ -49,18 +52,16 @@ class Salad {
     
     print() {
         return (
-            " Foundation: " +
+            " Bas: " +
             this.ingredients.foundation +
-            ", Proteins: " +
+            " Protein: " +
             this.ingredients.protein +
-            ", Extras: " +
+            " Extra: " +
             this.ingredients.extra +
-            ", Dressing: " +
+            " Dressing: " +
             this.ingredients.dressing
             + " "
         );
     }
 
 }
-
-export default Salad;
