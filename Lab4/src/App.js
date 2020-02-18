@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import 'bootstrap/dist/css/bootstrap.css';
-import "bootstrap/dist/js/bootstrap.js";
 import 'mdbreact/dist/css/mdb.css'
 
 import OrderView from "./OrderView";
@@ -11,36 +10,31 @@ import Salad from './Salad';
 class App extends Component {
   constructor(props) {
     super(props);
-    this.state = { list: [], inventory: {} };
+    this.state = { order: [], inventory: {} };
     this.handleSaladSubmit = this.handleSaladSubmit.bind(this);
     this.handleSaladRemove = this.handleSaladRemove.bind(this);
-    this.sendToServer = this.sendToServer.bind(this);
+    this.postSalad = this.postSalad.bind(this);
   }
 
-  sendToServer() {
-    fetch("http://localhost:8080/orders/", {
+  postSalad() {
+    fetch("http://localhost:8080/salads/", {
       crossDomain: true,
       method: "POST",
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(this.state.list)
+      body: JSON.stringify(this.state.order)
     })
       .then(response => response.json())
-      .then(data => console.log(JSON.stringify(data)));
+      .then(data => alert(JSON.stringify(data)));
 
-    this.setState({ list: [] });
+    this.setState({ order: [] });
     window.localStorage.clear();
   }
 
-  componentDidMount() {
-    let list = JSON.parse(window.localStorage.getItem('orders'));
-    if (list != null) {
-      list.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
-      this.setState({ list: list });
-    }
+  fetchInventory() {
     let tempInventory = {};
     let params = ["foundations", "proteins", "extras", "dressings"];
     let url = 'http://localhost:8080/';
-    
+
     Promise.all(
       params.map(async param => {
         const response = await fetch(url + param, {
@@ -65,24 +59,33 @@ class App extends Component {
     );
   }
 
+  componentDidMount() {
+    let order = JSON.parse(window.localStorage.getItem('salads'));
+    if (order != null) {
+      order.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
+      this.setState({ order: order });
+    }
+    this.fetchInventory();
+  }
+
   handleSaladSubmit(s) {
-    let temp = [...this.state.list]
+    let temp = [...this.state.order]
     temp.push(s);
-    this.setState({ list: temp })
-    window.localStorage.setItem('orders', JSON.stringify(temp));
+    this.setState({ order: temp })
+    window.localStorage.setItem('salads', JSON.stringify(temp));
   }
 
   handleSaladRemove(s) {
-    let temp = [...this.state.list];
+    let temp = [...this.state.order];
     let index = temp.indexOf(s);
     temp.splice(index, 1);
-    this.setState({ list: temp });
-    window.localStorage.setItem('orders', JSON.stringify(temp));
+    this.setState({ order: temp });
+    window.localStorage.setItem('salads', JSON.stringify(temp));
   }
 
   render() {
-    const composeSaladElem = (params) => <ComposeSalad {...params} inventory={this.state.inventory} handleSaladSubmit={this.handleSaladSubmit} />;
-    const viewOrderElem = (params) => <OrderView {...params} inputSalad={this.state.list} handleSaladRemove={this.handleSaladRemove} submitOrder={this.sendToServer} />;
+    const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} handleSaladSubmit={this.handleSaladSubmit} />;
+    const order = (params) => <OrderView {...params} inputSalad={this.state.order} handleSaladRemove={this.handleSaladRemove} submitOrder={this.postSalad} />;
 
     return (
       <Router>
@@ -99,10 +102,10 @@ class App extends Component {
           </ul>
         </div>
         <div className="container w-25">
-          <Route path="/compose-salad" render={composeSaladElem}></Route>
+          <Route path="/compose-salad" render={compose}></Route>
         </div>
         <div>
-          <Route path="/order-view" render={viewOrderElem}></Route>
+          <Route path="/order-view" render={order}></Route>
         </div>
         <div>
           <Route path="/ingredient-view/:ingredient" ></Route>
