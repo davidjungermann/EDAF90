@@ -36,13 +36,6 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    let tempOrder = [...this.state.order];
-    let order = JSON.parse(window.localStorage.getItem('order'));
-    if (order != null) {
-      Object.setPrototypeOf(order, Salad.prototype);
-      tempOrder.push(order);
-      this.setState({order: this.state.order.concat(tempOrder)});
-    }
     this.fetchInventory();
   }
 
@@ -61,7 +54,6 @@ class App extends React.Component {
     tempSalads.push(salad);
     this.setState({ order: tempSalads });
     let newSalad = { "foundation": salad.foundation.name, "protein": salad.protein.map(elem => elem.name), "extra": salad.extra.map(elem => elem.name), "dressing": salad.dressing.name };
-    window.localStorage.setItem('order', JSON.stringify(salad));
     this.orderSalad(newSalad)
       .then(data => alert(JSON.stringify(data)));
   }
