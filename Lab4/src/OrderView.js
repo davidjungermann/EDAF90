@@ -20,7 +20,7 @@ class OrderView extends Component {
               </li>)}
           </ol>
         </div>
-        <button type='button' className="btn btn-success float-right row justify-content-center align-self-center" onClick={() => this.props.postSalad()}>Beställ sallader</button>
+        <button type='button' className="btn btn-success float-right row justify-content-center align-self-center" onClick={() => this.props.postOrder()}>Beställ sallader</button>
       </div>
     )
   }

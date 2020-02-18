@@ -13,10 +13,10 @@ class App extends Component {
     this.state = { order: [], inventory: {} };
     this.saladSubmit = this.saladSubmit.bind(this);
     this.saladRemove = this.saladRemove.bind(this);
-    this.postSalad = this.postSalad.bind(this);
+    this.postOrder = this.postOrder.bind(this);
   }
 
-  postSalad() {
+  postOrder() {
     fetch("http://localhost:8080/orders/", {
       crossDomain: true,
       method: "POST",
@@ -62,30 +62,30 @@ class App extends Component {
   componentDidMount() {
     let order = JSON.parse(window.localStorage.getItem('salads'));
     if (order != null) {
-      order.forEach(s => Object.setPrototypeOf(s, Salad.prototype));
+      order.forEach(salad => Object.setPrototypeOf(salad, Salad.prototype));
       this.setState({ order: order });
     }
     this.fetchInventory();
   }
 
-  saladSubmit(s) {
-    let temp = [...this.state.order]
-    temp.push(s);
-    this.setState({ order: temp })
-    window.localStorage.setItem('salads', JSON.stringify(temp));
+  saladSubmit(salad) {
+    let tempSalads = [...this.state.order]
+    tempSalads.push(salad);
+    this.setState({ order: tempSalads })
+    window.localStorage.setItem('salads', JSON.stringify(tempSalads));
   }
 
-  saladRemove(s) {
-    let temp = [...this.state.order];
-    let index = temp.indexOf(s);
-    temp.splice(index, 1);
-    this.setState({ order: temp });
-    window.localStorage.setItem('salads', JSON.stringify(temp));
+  saladRemove(salad) {
+    let tempSalads = [...this.state.order];
+    let index = tempSalads.indexOf(salad);
+    tempSalads.splice(index, 1);
+    this.setState({ order: tempSalads });
+    window.localStorage.setItem('salads', JSON.stringify(this.state.order));
   }
 
   render() {
     const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
-    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.saladRemove} postSalad={this.postSalad} />;
+    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.saladRemove} postOrder={this.postOrder} />;
 
     return (
       <Router>
