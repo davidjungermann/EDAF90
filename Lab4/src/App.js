@@ -24,7 +24,7 @@ class App extends Component {
       body: JSON.stringify(this.state.order)
     })
       .then(response => response.json())
-      .then(data => alert(JSON.stringify({ status: data.status, timestamp: data.timestamp, order: data.order[0].ingredients })));
+      .then(data => console.log(JSON.stringify(data)));
 
     this.setState({ order: [] });
     window.localStorage.clear();

@@ -2,7 +2,8 @@ import nextId from "react-id-generator";
 export default class Salad {
     constructor(inventory) {
         Object.defineProperty(this, "id", { value: nextId(), writable: false });
-        this.inventory = inventory;
+        Object.defineProperty(this, "inventory", { value: inventory, writable: false });
+        
         this.ingredients = {
             foundation: [],
             protein: [],
