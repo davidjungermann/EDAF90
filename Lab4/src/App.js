@@ -64,6 +64,7 @@ class App extends Component {
     if (order != null) {
       order.forEach(salad => Object.setPrototypeOf(salad, Salad.prototype));
       this.setState({ order: order });
+      console.log(order);
     }
     this.fetchInventory();
   }
@@ -85,7 +86,7 @@ class App extends Component {
 
   render() {
     const compose = (params) => <ComposeSalad {...params} inventory={this.state.inventory} saladSubmit={this.saladSubmit} />;
-    const order = (params) => <OrderView {...params} inputSalad={this.state.order} saladRemove={this.saladRemove} postOrder={this.postOrder} />;
+    const order = (params) => <OrderView {...params} order={this.state.order} saladRemove={this.saladRemove} postOrder={this.postOrder} />;
 
     return (
       <Router>

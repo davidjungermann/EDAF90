@@ -7,7 +7,7 @@ class OrderView extends Component {
       <div className="container w-50">
         <div className="list-group">
           <ol id="orders">
-            {this.props.inputSalad.map(salad =>
+            {this.props.order.map(salad =>
               <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
                 marginTop: 10
               }}>
