@@ -3,6 +3,7 @@ import inventory from "./inventory.ES6"
 export default class Salad {
     constructor() {
         Object.defineProperty(this, "id", { value: nextId(), writable: false });
+        
         this.ingredients = {
             foundation: [],
             protein: [],
@@ -41,15 +42,10 @@ export default class Salad {
     }
 
     price() {
-        let allIngredientPrices = Object.values(this.ingredients).reduce((acc, curr) => {
-            return acc.concat(curr);
-        }, []);
-        let totalPrice = allIngredientPrices.reduce((acc, curr) => {
-            return acc + curr.price;
-        }, 0);
-        console.log("Total price: " + totalPrice);
+        let salad = [].concat(this.ingredients.foundation, this.ingredients.protein, this.ingredients.extra, this.ingredients.dressing);
+        return salad.reduce((sum, ingredient) => sum += inventory[ingredient].price, 0);
     }
-    
+
     print() {
         return (
             " Bas: " +

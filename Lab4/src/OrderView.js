@@ -17,6 +17,11 @@ class OrderView extends Component {
                 }}>{salad.print()}
                 </span>
                 <button type='button' className='btn btn-danger' onClick={() => this.props.saladRemove(salad)}>Ta bort sallad</button>
+                <span className="badge badge-primary badge-pill row justify-content-center align-self-center" style={{
+                  position: "absolute",
+                  right: "40px",
+                  top: "50"
+                }}>{salad.price() + " kr"}</span>
               </li>)}
           </ol>
         </div>

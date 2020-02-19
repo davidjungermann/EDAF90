@@ -1,10 +1,10 @@
 let inventory = {
-  Sallad: {price: 10, foundation: true, vegan: true}, 
+  Sallad: {price: 10, foundation: true, vegan: true},
   Pasta: {price: 10, foundation: true, gluten: true},
-  'Salad + Pasta': {price: 10, foundation: true, gluten: true},
-  'Salad + Matvete': {price: 10, foundation: true, vegan: true, gluten: true},
-  'Salad + Glasnudlar': {price: 10, foundation: true, gluten: true},
-  'Salad + Quinoa': {price: 10, foundation: true, vegan: true},
+  'Sallad + Pasta': {price: 10, foundation: true, gluten: true},
+  'Sallad + Matvete': {price: 10, foundation: true, vegan: true, gluten: true},
+  'Sallad + Glasnudlar': {price: 10, foundation: true, gluten: true},
+  'Sallad + Quinoa': {price: 10, foundation: true, vegan: true},
 
   'Kycklingfilé': {price: 10, protein: true},
   'Rökt kalkonfilé': {price: 10, protein: true},
@@ -14,6 +14,7 @@ let inventory = {
   'Marinerad bönmix': {price: 10, protein: true, vegan: true},
 
   Avocado: {price: 10, extra: true, vegan: true},
+  Bacon: {price: 10, extra: true},
   'Böngroddar': {price: 5, extra: true, vegan: true},
   'Cashewnötter': {price: 5, extra: true, vegan: true},
   'Chèvreost': {price: 15, extra: true, lactose: true},
@@ -24,6 +25,7 @@ let inventory = {
   Jalapeno: {price: 5, extra: true, vegan: true},
   'Krossade jordnötter': {price: 5, extra: true, vegan: true},
   Krutonger: {price: 5, extra: true, gluten: true},
+  'Körsbärstomater': {price: 5, extra: true, vegan: true},
   Lime: {price: 5, extra: true, vegan: true},
   Majs: {price: 5, extra: true, vegan: true},
   Oliver: {price: 5, extra: true, vegan: true},
@@ -50,13 +52,13 @@ let inventory = {
   'Örtvinägrett': {price: 5, dressing: true, vegan: true},
 };
 
-// recursivly freeze the datastructure.
-(function () {
+// recursively freeze the data structure.
+(function() {
+  deepFreeze(inventory);
   function deepFreeze(obj) {
       Object.keys(obj).map(prop => deepFreeze(obj[prop]));
       Object.freeze(obj);
   }
-  deepFreeze(inventory);
 })();
 
 export default inventory;
