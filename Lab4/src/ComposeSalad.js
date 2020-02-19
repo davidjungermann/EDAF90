@@ -5,13 +5,18 @@ import 'bootstrap/dist/css/bootstrap.css';
 class ComposeSalad extends Component {
     constructor(props) {
         super(props);
-        this.state = { foundation: '', protein: [], extra: [], dressing: '', salad: new Salad() };
+        this.state = { foundation: '', protein: [], extra: [], dressing: '', salad: new Salad(this.getInventory()) };
 
         this.handleFoundation = this.handleFoundation.bind(this);
         this.handleProtein = this.handleProtein.bind(this);
         this.handleExtra = this.handleExtra.bind(this);
         this.handleDressing = this.handleDressing.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+    }
+
+    getInventory() {
+        const inventory = this.props.inventory;
+        return inventory;
     }
 
     handleFoundation(event) {
@@ -66,7 +71,7 @@ class ComposeSalad extends Component {
             protein: [],
             extra: [],
             dressing: '',
-            salad: new Salad()
+            salad: new Salad(this.getInventory())
         });
     }
 

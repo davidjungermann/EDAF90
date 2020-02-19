@@ -1,9 +1,8 @@
 import nextId from "react-id-generator";
-import inventory from "./inventory.ES6"
 export default class Salad {
-    constructor() {
+    constructor(inventory) {
         Object.defineProperty(this, "id", { value: nextId(), writable: false });
-        
+        this.inventory = inventory;
         this.ingredients = {
             foundation: [],
             protein: [],
@@ -42,6 +41,7 @@ export default class Salad {
     }
 
     price() {
+        const inventory = this.inventory;
         let salad = [].concat(this.ingredients.foundation, this.ingredients.protein, this.ingredients.extra, this.ingredients.dressing);
         return salad.reduce((sum, ingredient) => sum += inventory[ingredient].price, 0);
     }
