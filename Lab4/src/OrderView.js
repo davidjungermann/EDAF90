@@ -23,7 +23,9 @@ class OrderView extends Component {
             }}>{salad.price() + " kr"}</span>
           </li>)
         }
-        <button type='button' className='btn btn-success float-right' onClick={() => this.props.postOrder()}>Beställ sallader</button>
+        <div>
+          <button type='button' className='btn btn-success float-right' onClick={() => this.props.postOrder()}>Beställ sallader</button>
+        </div>
       </ul>
     );
   }
