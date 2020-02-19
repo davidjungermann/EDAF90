@@ -4,30 +4,28 @@ class OrderView extends Component {
 
   render() {
     return (
-      <div className="container w-50">
-        <div className="list-group">
-          <ol id="orders">
-            {this.props.order.map(salad =>
-              <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
-                marginTop: 10
-              }}>
-                <span style={{
-                  display: "block",
-                  width: 500
-                }}>{salad.print()}
-                </span>
-                <button type='button' className='btn btn-danger' onClick={() => this.props.saladRemove(salad)}>Ta bort sallad</button>
-                <span className="badge badge-primary badge-pill row justify-content-center align-self-center" style={{
-                  position: "absolute",
-                  right: "40px",
-                  top: "50"
-                }}>{salad.price() + " kr"}</span>
-              </li>)}
-          </ol>
-        </div>
-        <button type='button' className="btn btn-success float-right row justify-content-center align-self-center" onClick={() => this.props.postOrder()}>Beställ sallader</button>
-      </div>
-    )
+      <ul className="container w-50">
+        {this.props.order.map(salad =>
+          <li key={salad.id} className="list-group-item py-0 list-group-item-success container d-flex h-100" style={{
+            marginTop: 10
+          }}>
+            <br></br>
+            <span style={{
+              display: "block",
+              width: 500
+            }}>{salad.print(salad)}
+            </span>
+            <button type='button' className="btn btn-danger float-right row justify-content-center align-self-center" onClick={() => this.props.saladRemove(salad)}>Ta bort</button>
+            <span className="badge badge-primary badge-pill row justify-content-center align-self-center" style={{
+              position: "absolute",
+              right: "40px",
+              top: "50"
+            }}>{salad.price() + " kr"}</span>
+          </li>)
+        }
+        <button type='button' className='btn btn-success float-right' onClick={() => this.props.postOrder()}>Beställ sallader</button>
+      </ul>
+    );
   }
 }
 
